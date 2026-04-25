@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { SlideArrowButton } from './ui/SlideArrowButton'
+import { HoverBorderGradient } from './ui/HoverBorderGradient'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -150,20 +151,14 @@ export default function Donate({ onOpenVolunteer }) {
               text="Donar con PayPal"
               className="bg-[#002D62] text-white text-[15px] tracking-wide w-full sm:w-auto justify-center"
             />
-            <SlideArrowButton
+            <HoverBorderGradient
+              as="button"
               onClick={onOpenVolunteer}
-              text="Sé Voluntario"
-              className="bg-[#1a1a2e] text-white text-[15px] tracking-wide w-full sm:w-auto justify-center"
-            />
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-            {['100% va a la comunidad', 'Seguro y transparente', 'GoFundMe · PayPal'].map((line) => (
-              <div key={line} className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span className="font-sans text-[12px] text-[#555]">{line}</span>
-              </div>
-            ))}
+              containerClassName="w-full sm:w-auto"
+              className="font-sans text-[15px] tracking-wide px-6 py-2.5"
+            >
+              Sé Voluntario
+            </HoverBorderGradient>
           </div>
         </div>
       </div>
