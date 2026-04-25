@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion } from 'motion/react'
 import { Menu, X, Users, Trophy, Image, Mail } from 'lucide-react'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const links = [
   { label: 'Nosotros', href: '#nosotros', icon: Users },
@@ -22,70 +19,35 @@ export default function Navbar() {
     const el = pillRef.current
     if (!el) return
 
-    // Start hidden
     gsap.set(el, { y: -40, opacity: 0 })
 
-    let isScrollingProgrammatically = false
-    let scrollTimeout = null
+    const onScroll = () => {
+      const y = window.scrollY
+      const visible = y > 30
+      const dense = y > 120
 
-    // Listen for programmatic scrolls (from anchor clicks)
-    const handleScrollStart = () => {
-      if (window.scrollY > 200) {
-        isScrollingProgrammatically = true
-        clearTimeout(scrollTimeout)
-        scrollTimeout = setTimeout(() => {
-          isScrollingProgrammatically = false
-        }, 1200)
-      }
+      gsap.to(el, {
+        y: visible ? 0 : -40,
+        opacity: visible ? 1 : 0,
+        duration: visible ? 0.6 : 0.4,
+        ease: visible ? 'power4.out' : 'power2.inOut',
+        overwrite: true,
+      })
+
+      gsap.to(el, {
+        backgroundColor: dense ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.7)',
+        borderColor: dense ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.05)',
+        boxShadow: dense
+          ? '0 1px 2px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06), 0 12px 40px rgba(0,0,0,0.04)'
+          : '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02)',
+        duration: 0.4,
+        ease: 'power2.inOut',
+        overwrite: true,
+      })
     }
-    window.addEventListener('click', (e) => {
-      const anchor = e.target.closest('a[href^="#"]')
-      if (anchor) handleScrollStart()
-    })
 
-    const ctx = gsap.context(() => {
-      // Reveal navbar on first scroll
-      ScrollTrigger.create({
-        trigger: document.body,
-        start: 'top -30px',
-        onEnter: () => {
-          gsap.to(el, {
-            y: 0, opacity: 1, duration: 0.9, ease: 'power4.out',
-          })
-        },
-        onLeaveBack: () => {
-          if (isScrollingProgrammatically) return
-          gsap.to(el, {
-            y: -40, opacity: 0, duration: 0.5, ease: 'power2.inOut',
-          })
-        },
-      })
-
-      // Glass effect intensifies after more scroll
-      ScrollTrigger.create({
-        trigger: document.body,
-        start: 'top -120px',
-        onEnter: () => {
-          gsap.to(el, {
-            backgroundColor: 'rgba(255, 255, 255, 0.97)',
-            borderColor: 'rgba(0,0,0,0.08)',
-            boxShadow: '0 1px 2px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06), 0 12px 40px rgba(0,0,0,0.04)',
-            duration: 0.5,
-            ease: 'power2.inOut',
-          })
-        },
-        onLeaveBack: () => {
-          gsap.to(el, {
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            borderColor: 'rgba(0,0,0,0.05)',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02)',
-            duration: 0.5,
-            ease: 'power2.inOut',
-          })
-        },
-      })
-    })
-    return () => ctx.revert()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   // Scroll-based active section detection

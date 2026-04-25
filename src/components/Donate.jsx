@@ -64,7 +64,7 @@ function ImpactCard({ icon, title, desc, index }) {
   )
 }
 
-export default function Donate() {
+export default function Donate({ onOpenVolunteer }) {
   const sectionRef = useRef(null)
 
   useEffect(() => {
@@ -135,25 +135,14 @@ export default function Donate() {
         </div>
 
         <div className="donate-cta flex flex-col items-center text-center gap-8">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <SlideArrowButton
-              href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
-              target="_blank"
-              rel="noopener noreferrer"
-              text="Donar en GoFundMe"
-              className="bg-[#CE1126] text-white text-[15px] tracking-wide"
-            />
-            <SlideArrowButton
-              href="https://www.paypal.com/donate/?hosted_button_id=9LZBLNNTUCW34"
-              target="_blank"
-              rel="noopener noreferrer"
-              text="Donar con PayPal"
-              className="bg-[#002D62] text-white text-[15px] tracking-wide"
-            />
-          </div>
+          <SlideArrowButton
+            onClick={onOpenVolunteer}
+            text="Sé Voluntario"
+            className="bg-[#1a1a2e] text-white text-[15px] tracking-wide"
+          />
 
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-            {['100% va a la comunidad', 'Seguro y transparente', 'GoFundMe · PayPal'].map((line) => (
+            {['Sin costo, solo tu tiempo', 'Impacto directo en la comunidad', 'Únete al equipo'].map((line) => (
               <div key={line} className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 <span className="font-sans text-[12px] text-[#555]">{line}</span>

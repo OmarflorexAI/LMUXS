@@ -39,11 +39,11 @@ export default function App() {
       <Navbar />
 
       <main>
-        <Hero onOpenVolunteer={() => setVolunteerOpen(true)} />
+        <Hero />
         <About />
         <Stats />
         <Gallery />
-        <Donate />
+        <Donate onOpenVolunteer={() => setVolunteerOpen(true)} />
       </main>
 
       <Footer />

@@ -6,7 +6,7 @@ import { MeshGradient } from '@paper-design/shaders-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function Hero({ onOpenVolunteer }) {
+export default function Hero() {
   const containerRef = useRef(null)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -139,13 +139,15 @@ export default function Hero({ onOpenVolunteer }) {
               href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
               target="_blank"
               rel="noopener noreferrer"
-              text="Donar Ahora"
+              text="Donar en GoFundMe"
               className="bg-[#CE1126] text-white tracking-wide"
             />
             <SlideArrowButton
-              onClick={onOpenVolunteer}
-              text="Sé Voluntario"
-              className="bg-white/80 backdrop-blur-md text-[#1a1a2e] border border-black/[0.08] shadow-[0_2px_16px_rgba(0,0,0,0.06),0_1px_2px_rgba(0,0,0,0.04)] tracking-wide"
+              href="https://www.paypal.com/donate/?hosted_button_id=9LZBLNNTUCW34"
+              target="_blank"
+              rel="noopener noreferrer"
+              text="Donar con PayPal"
+              className="bg-[#002D62] text-white tracking-wide"
             />
           </div>
         </div>
