@@ -94,7 +94,7 @@ export default function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3">
       <div
         ref={pillRef}
-        className="max-w-3xl mx-auto flex items-center justify-between px-2.5 py-1 rounded-full border"
+        className="max-w-3xl mx-auto grid grid-cols-[1fr_auto_1fr] items-center px-2.5 py-1 rounded-full border"
         style={{
           backgroundColor: 'rgba(255,255,255,0.7)',
           backdropFilter: 'blur(20px) saturate(1.4)',
@@ -163,7 +163,7 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center pr-0.5">
+        <div className="flex items-center justify-end pr-0.5">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden w-7 h-7 flex items-center justify-center rounded-full text-[#1a1a2e] transition-colors duration-200"
