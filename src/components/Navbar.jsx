@@ -137,8 +137,11 @@ export default function Navbar() {
                     window.scrollTo({ top, behavior: 'smooth' })
                   }
                 }}
-                className="relative font-sans text-[11px] font-medium px-3 py-1.5 rounded-full transition-colors duration-200 tracking-wide cursor-pointer"
-                style={{ color: isActive ? '#CE1126' : '#444' }}
+                className={`relative font-sans text-[11px] font-medium px-3 py-1.5 rounded-full transition-all duration-200 tracking-wide cursor-pointer ${
+                  isActive
+                    ? 'text-[#CE1126]'
+                    : 'text-[#444] hover:text-[#1a1a2e] hover:bg-black/[0.05]'
+                }`}
               >
                 <span className="relative z-10">{link.label}</span>
                 {isActive && (
