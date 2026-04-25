@@ -31,8 +31,8 @@ export default function Footer() {
         style={{ background: 'linear-gradient(to right, #002D62 0%, #002D62 33%, rgba(255,255,255,0.15) 33%, rgba(255,255,255,0.15) 66%, #CE1126 66%, #CE1126 100%)' }} />
 
 
-      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 pb-12 border-b border-white/[0.08]">
+      <div className="max-w-6xl mx-auto px-6 md:px-10 pt-12 md:pt-16 pb-6 md:pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 pb-8 md:pb-12 border-b border-white/[0.08]">
 
           <div className="md:col-span-4">
             <a href="#inicio" onClick={(e) => {
@@ -107,9 +107,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-5 md:pt-6">
           <p className="font-sans text-white/40 text-[11px]">
-            &copy; 2025 LMUXS — Los Mina Unidos Por Siempre
+            &copy; 2026 LMUXS — Los Mina Unidos Por Siempre
           </p>
           <div className="flex items-center gap-1">
             <div className="w-2 h-2 rounded-full bg-[#002D62]" />
