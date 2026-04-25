@@ -22,8 +22,7 @@ export default function Hero() {
       const dur = isMobile ? 0.65 : 1.0
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
-      tl.fromTo('.h-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, 0.2)
-        .fromTo('.h-title1',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.3')
+      tl.fromTo('.h-title1',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, 0.2)
         .fromTo('.h-title2',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.6')
         .fromTo('.h-sub',     { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.75 }, '-=0.5')
         .fromTo('.h-btns',    { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, '-=0.4')
@@ -95,14 +94,6 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-6xl mx-auto w-full px-6 md:px-10">
         <div className="max-w-[720px]">
-
-          {/* Eyebrow label */}
-          <div className="h-eyebrow flex items-center gap-2.5 mb-5">
-            <div className="w-5 h-[1px] bg-dominican-red" />
-            <span className="font-sans text-[11px] uppercase tracking-[0.3em] font-semibold text-dominican-red">
-              Los Mina, R.D.
-            </span>
-          </div>
 
           {/* Serif headline */}
           <h1
