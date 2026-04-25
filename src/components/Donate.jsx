@@ -154,8 +154,8 @@ export default function Donate({ onOpenVolunteer }) {
             <HoverBorderGradient
               as="button"
               onClick={onOpenVolunteer}
-              containerClassName="w-full sm:w-auto"
-              className="font-sans text-[15px] tracking-wide px-6 py-2.5"
+              containerClassName="w-full sm:w-auto h-12"
+              className="font-sans font-bold text-[14px] tracking-wide px-7 h-full flex items-center"
             >
               Sé Voluntario
             </HoverBorderGradient>
