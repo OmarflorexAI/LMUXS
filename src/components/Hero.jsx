@@ -19,13 +19,14 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const dur = isMobile ? 0.7 : 1.1
+      const dur = isMobile ? 0.65 : 1.0
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
-      tl.fromTo('.h-line1',     { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, 0.3)
-        .fromTo('.h-line2',     { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.55')
-        .fromTo('.h-sub',       { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.75 }, '-=0.45')
-        .fromTo('.h-btns',      { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, '-=0.35')
+      tl.fromTo('.h-eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, 0.2)
+        .fromTo('.h-title1',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.3')
+        .fromTo('.h-title2',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.6')
+        .fromTo('.h-sub',     { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.75 }, '-=0.5')
+        .fromTo('.h-btns',    { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, '-=0.4')
     }, containerRef)
     return () => ctx.revert()
   }, [isMobile])
@@ -93,37 +94,57 @@ export default function Hero() {
       <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-dominican-blue via-[#ccc] to-dominican-red" />
 
       <div className="relative z-10 max-w-6xl mx-auto w-full px-6 md:px-10">
-        <div className="max-w-[780px]">
+        <div className="max-w-[720px]">
 
-          <h1 className="h-line1 font-serif italic font-normal"
+          {/* Eyebrow label */}
+          <div className="h-eyebrow flex items-center gap-2.5 mb-5">
+            <div className="w-5 h-[1px] bg-dominican-red" />
+            <span className="font-sans text-[11px] uppercase tracking-[0.3em] font-semibold text-dominican-red">
+              Los Mina, R.D.
+            </span>
+          </div>
+
+          {/* Serif headline */}
+          <h1
+            className="h-title1 font-serif italic font-normal"
             style={{
-              fontSize: 'clamp(2.6rem, 7vw, 6.5rem)',
-              lineHeight: 1.05,
-              marginBottom: 0,
+              fontSize: 'clamp(2.4rem, 6.5vw, 6rem)',
+              lineHeight: 1.08,
               color: '#1a1a2e',
-            }}>
+              marginBottom: '0.18em',
+            }}
+          >
             Unidos por el juego,
           </h1>
-          <h1 className="h-line2 font-sans font-black uppercase tracking-tighter mb-3"
+
+          {/* Bold sans headline */}
+          <h1
+            className="h-title2 font-sans font-black uppercase tracking-tighter"
             style={{
-              fontSize: 'clamp(2.1rem, 5.8vw, 5.4rem)',
-              lineHeight: 0.92,
-              marginTop: '-0.06em',
+              fontSize: 'clamp(2rem, 5.5vw, 5rem)',
+              lineHeight: 1.0,
               color: '#1a1a2e',
-            }}>
+              marginBottom: '1.2rem',
+            }}
+          >
             Unidos para{' '}
             <span style={{ color: '#CE1126' }}>siempre.</span>
           </h1>
 
-          <p className="h-sub font-sans leading-relaxed mb-8"
+          {/* Subtitle */}
+          <p
+            className="h-sub font-sans leading-relaxed"
             style={{
-              fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-              maxWidth: '500px',
+              fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+              maxWidth: '460px',
               color: '#3a3a4a',
-            }}>
+              marginBottom: '2rem',
+            }}
+          >
             Transformando vidas a traves del deporte en Republica Dominicana. Una vida a la vez.
           </p>
 
+          {/* CTA buttons */}
           <div className="h-btns flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
             <SlideArrowButton
               href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
