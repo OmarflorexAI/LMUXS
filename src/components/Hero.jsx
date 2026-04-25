@@ -32,7 +32,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="inicio"
-      className="relative flex flex-col justify-center min-h-screen pt-28 pb-28 md:pt-32 md:pb-36 overflow-x-hidden"
+      className="relative flex flex-col justify-center min-h-[100svh] pt-24 pb-20 md:pt-32 md:pb-36 overflow-x-hidden"
       style={{ backgroundColor: '#E8E4E0' }}
     >
       {/* ── Mesh gradient shader background ── */}
@@ -108,29 +108,29 @@ export default function Hero() {
             <span style={{ color: '#CE1126' }}>siempre.</span>
           </h1>
 
-          <p className="h-sub font-sans leading-relaxed mb-7"
+          <p className="h-sub font-sans leading-relaxed mb-8"
             style={{
-              fontSize: 'clamp(1.05rem, 1.9vw, 1.2rem)',
+              fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
               maxWidth: '500px',
               color: '#3a3a4a',
             }}>
             Transformando vidas a traves del deporte en Republica Dominicana. Una vida a la vez.
           </p>
 
-          <div className="h-btns flex flex-wrap items-center gap-3.5">
+          <div className="h-btns flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
             <SlideArrowButton
               href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
               target="_blank"
               rel="noopener noreferrer"
               text="Donar en GoFundMe"
-              className="bg-[#CE1126] text-white tracking-wide"
+              className="bg-[#CE1126] text-white tracking-wide w-full sm:w-auto justify-center"
             />
             <SlideArrowButton
               href="https://www.paypal.com/donate/?hosted_button_id=9LZBLNNTUCW34"
               target="_blank"
               rel="noopener noreferrer"
               text="Donar con PayPal"
-              className="bg-[#002D62] text-white tracking-wide"
+              className="bg-[#002D62] text-white tracking-wide w-full sm:w-auto justify-center"
             />
           </div>
         </div>

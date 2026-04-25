@@ -82,7 +82,7 @@ function StatCard({ value, suffix, label, sub, icon, accent, image, index }) {
   return (
     <div ref={cardRef} style={{ opacity: 0 }}>
       <CardCurtainReveal
-        className="h-[420px] sm:h-[480px] rounded-2xl text-[#1a1a2e] bg-white"
+        className="h-[380px] sm:h-[440px] md:h-[480px] rounded-2xl text-[#1a1a2e] bg-white"
         style={{
           border: '1px solid rgba(0,0,0,0.08)',
           boxShadow: '0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',

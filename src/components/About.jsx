@@ -98,7 +98,7 @@ export default function About() {
           </div>
         </div>
 
-        <div className="about-photos order-1 md:order-2 relative h-[320px] sm:h-[420px] md:h-[560px]">
+        <div className="about-photos order-1 md:order-2 relative h-[280px] xs:h-[320px] sm:h-[420px] md:h-[560px]">
           <div className="about-photo about-photo-top absolute top-0 right-0 w-[72%] h-[75%] rounded-[2rem] overflow-hidden shadow-xl shadow-black/10">
             <img src="/images/de412b4d-9ed7-4096-8eb8-787f6332f666.jpg" alt="Trofeo LMUXS"
               className="w-full h-full object-cover" loading="eager" decoding="async" />

@@ -7,7 +7,7 @@ export function SlideArrowButton({ text, href, className, ...props }) {
     <Tag
       href={href}
       className={cn(
-        'relative font-sans font-bold text-[14px] rounded-full h-12 p-1 ps-7 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-7 w-fit overflow-hidden cursor-pointer inline-flex items-center',
+        'relative font-sans font-bold text-[14px] rounded-full h-12 p-1 ps-7 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-7 overflow-hidden cursor-pointer inline-flex items-center',
         className
       )}
       {...props}

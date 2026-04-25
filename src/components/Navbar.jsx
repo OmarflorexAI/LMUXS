@@ -19,6 +19,15 @@ export default function Navbar() {
     const el = pillRef.current
     if (!el) return
 
+    const isMobile = window.innerWidth < 768
+
+    if (isMobile) {
+      // Always visible on mobile — scroll-reveal is a desktop pattern
+      gsap.set(el, { y: 0, opacity: 1 })
+      return
+    }
+
+    // Desktop: scroll-based reveal
     gsap.set(el, { y: -40, opacity: 0 })
 
     let rafId = null
