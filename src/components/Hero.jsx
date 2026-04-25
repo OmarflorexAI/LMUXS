@@ -49,7 +49,7 @@ export default function Hero({ onOpenVolunteer }) {
     <section
       ref={containerRef}
       id="inicio"
-      className="relative flex flex-col justify-center pt-28 pb-28 md:pt-32 md:pb-36 overflow-hidden"
+      className="relative flex flex-col justify-center min-h-screen pt-28 pb-28 md:pt-32 md:pb-36 overflow-hidden"
       style={{ backgroundColor: '#E8E4E0' }}
     >
       {/* ── Mesh gradient shader background ── */}
