@@ -3,8 +3,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import InteractiveSelector from './ui/interactive-selector'
 
-gsap.registerPlugin(ScrollTrigger)
-
 export default function Gallery() {
   const sectionRef = useRef(null)
 

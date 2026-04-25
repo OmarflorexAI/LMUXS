@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
-
 const cards = [
   { k: 'Fundacion', v: '2016', accent: '#CE1126' },
   { k: 'Sede', v: 'Los Mina, R.D.', accent: '#002D62' },

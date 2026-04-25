@@ -18,8 +18,9 @@ export default function Hero() {
   }, [])
 
   useEffect(() => {
+    const mobile = window.innerWidth < 768
     const ctx = gsap.context(() => {
-      const dur = isMobile ? 0.65 : 1.0
+      const dur = mobile ? 0.65 : 1.0
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
       tl.fromTo('.h-title1',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, 0.2)
@@ -28,7 +29,7 @@ export default function Hero() {
         .fromTo('.h-btns',    { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, '-=0.4')
     }, containerRef)
     return () => ctx.revert()
-  }, [isMobile])
+  }, [])
 
   return (
     <section

@@ -9,8 +9,6 @@ import { cn } from '../lib/utils'
 import { SlideArrowButton } from './ui/SlideArrowButton'
 import { HoverBorderGradient } from './ui/HoverBorderGradient'
 
-gsap.registerPlugin(ScrollTrigger)
-
 const impacts = [
   { icon: <Dumbbell />, title: 'Entrenamiento deportivo', desc: 'Materiales, balones y coaching profesional para formar atletas con disciplina.' },
   { icon: <Shirt />, title: 'Uniformes y equipos', desc: 'Un uniforme oficial para que cada joven represente su comunidad con orgullo.' },

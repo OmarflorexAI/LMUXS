@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { motion } from 'motion/react'
+import { motion, LayoutGroup } from 'motion/react'
 import { Menu, X, Users, Trophy, Image, Mail } from 'lucide-react'
 
 const links = [
@@ -120,7 +120,8 @@ export default function Navbar() {
           </div>
         </a>
 
-        <nav className="hidden md:flex items-center gap-0.5">
+        <LayoutGroup>
+        <motion.nav layoutRoot className="hidden md:flex items-center gap-0.5">
           {links.map((link) => {
             const isActive = activeTab === link.href
             return (
@@ -137,7 +138,7 @@ export default function Navbar() {
                     window.scrollTo({ top, behavior: 'smooth' })
                   }
                 }}
-                className={`relative font-sans text-[11px] font-medium px-3 py-1.5 rounded-full transition-all duration-200 tracking-wide cursor-pointer ${
+                className={`relative font-sans text-[11px] font-medium px-3 py-1.5 rounded-full transition-colors duration-200 tracking-wide cursor-pointer ${
                   isActive
                     ? 'text-[#CE1126]'
                     : 'text-[#444] hover:text-[#1a1a2e] hover:bg-black/[0.05]'
@@ -164,7 +165,8 @@ export default function Navbar() {
               </a>
             )
           })}
-        </nav>
+        </motion.nav>
+        </LayoutGroup>
 
         <div className="flex items-center justify-end pr-0.5">
           <button

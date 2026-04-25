@@ -13,8 +13,6 @@ import {
   useCardCurtainRevealContext,
 } from './ui/card-curtain-reveal'
 
-gsap.registerPlugin(ScrollTrigger)
-
 const stats = [
   {
     value: 300, suffix: '+', label: 'Jugadores Formados',

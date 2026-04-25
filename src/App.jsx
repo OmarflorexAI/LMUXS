@@ -13,7 +13,7 @@ import VolunteerModal from './components/VolunteerModal'
 
 gsap.registerPlugin(ScrollTrigger)
 
-gsap.defaults({ ease: 'power3.out', overwrite: 'auto' })
+gsap.defaults({ ease: 'power3.out' })
 ScrollTrigger.defaults({ once: true })
 gsap.config({ force3D: true })
 
