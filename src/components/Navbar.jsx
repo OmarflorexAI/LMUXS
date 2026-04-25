@@ -21,33 +21,43 @@ export default function Navbar() {
 
     gsap.set(el, { y: -40, opacity: 0 })
 
-    const onScroll = () => {
+    let rafId = null
+    let prevVisible = false
+    let prevDense = false
+
+    const update = () => {
       const y = window.scrollY
       const visible = y > 30
       const dense = y > 120
 
+      if (visible === prevVisible && dense === prevDense) return
+      prevVisible = visible
+      prevDense = dense
+
       gsap.to(el, {
         y: visible ? 0 : -40,
         opacity: visible ? 1 : 0,
-        duration: visible ? 0.6 : 0.4,
-        ease: visible ? 'power4.out' : 'power2.inOut',
-        overwrite: true,
-      })
-
-      gsap.to(el, {
         backgroundColor: dense ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.7)',
         borderColor: dense ? 'rgba(0,0,0,0.08)' : 'rgba(0,0,0,0.05)',
         boxShadow: dense
           ? '0 1px 2px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06), 0 12px 40px rgba(0,0,0,0.04)'
           : '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02)',
-        duration: 0.4,
-        ease: 'power2.inOut',
+        duration: 0.55,
+        ease: 'power3.out',
         overwrite: true,
       })
     }
 
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(update)
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [])
 
   // Scroll-based active section detection
@@ -144,27 +154,7 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-1.5 pr-0.5">
-          <a
-            href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center bg-dominican-red text-white font-sans font-semibold text-[10px] px-3.5 py-1.5 rounded-full"
-            style={{ transition: 'transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease' }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'scale(1.04)'
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(206,17,38,0.3)'
-              e.currentTarget.style.backgroundColor = '#a80e1e'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'scale(1)'
-              e.currentTarget.style.boxShadow = 'none'
-              e.currentTarget.style.backgroundColor = '#CE1126'
-            }}
-          >
-            Donar
-          </a>
-
+        <div className="flex items-center pr-0.5">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden w-7 h-7 flex items-center justify-center rounded-full text-[#1a1a2e] transition-colors duration-200"
@@ -195,7 +185,7 @@ export default function Navbar() {
             boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
           }}
         >
-          <nav className="flex flex-col gap-0.5 mb-4">
+          <nav className="flex flex-col gap-0.5">
             {links.map((link) => {
               const Icon = link.icon
               const isActive = activeTab === link.href
@@ -226,15 +216,6 @@ export default function Navbar() {
               )
             })}
           </nav>
-          <a
-            href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setMenuOpen(false)}
-            className="block w-full text-center bg-dominican-red text-white font-sans font-bold text-[14px] py-3 rounded-full"
-          >
-            Donar Ahora
-          </a>
         </div>
       </div>
     </header>

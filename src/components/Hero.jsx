@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SlideArrowButton } from './ui/SlideArrowButton'
 import { MeshGradient } from '@paper-design/shaders-react'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero() {
   const containerRef = useRef(null)
@@ -27,20 +24,6 @@ export default function Hero() {
         .fromTo('.h-line2',     { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.55')
         .fromTo('.h-sub',       { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.75 }, '-=0.45')
         .fromTo('.h-btns',      { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, '-=0.35')
-
-      /* Parallax drift — desktop only */
-      if (!isMobile) {
-        gsap.to('.hero-orb', {
-          y: -40,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1.5,
-          },
-        })
-      }
     }, containerRef)
     return () => ctx.revert()
   }, [isMobile])
@@ -49,11 +32,11 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="inicio"
-      className="relative flex flex-col justify-center min-h-screen pt-28 pb-28 md:pt-32 md:pb-36 overflow-hidden"
+      className="relative flex flex-col justify-center min-h-screen pt-28 pb-28 md:pt-32 md:pb-36 overflow-x-hidden"
       style={{ backgroundColor: '#E8E4E0' }}
     >
       {/* ── Mesh gradient shader background ── */}
-      <div className="absolute inset-0 pointer-events-none hero-orb overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none hero-orb">
         <MeshGradient
           colors={['#dbdbdb', '#b7c3dc', '#c7c7c7', '#b1434b']}
           distortion={0.7383249990170568}
