@@ -36,54 +36,33 @@ export default function Hero() {
       ref={containerRef}
       id="inicio"
       className="relative flex flex-col justify-center min-h-[100svh] pt-24 pb-20 md:pt-32 md:pb-36 overflow-x-hidden"
-      style={{ backgroundColor: '#E8E4E0' }}
+      style={{ backgroundColor: '#E8E4E0', isolation: 'isolate' }}
     >
       {/* ── Mesh gradient shader background ── */}
       <div
         className="absolute inset-0 pointer-events-none hero-orb"
-        style={{ willChange: 'transform' }}
+        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
       >
         <MeshGradient
           colors={['#dbdbdb', '#b7c3dc', '#c7c7c7', '#b1434b']}
-          distortion={isMobile ? 0.45 : 0.7383249990170568}
-          swirl={isMobile ? 0.18 : 0.2236629188160714}
+          distortion={isMobile ? 0.4 : 0.65}
+          swirl={isMobile ? 0.15 : 0.2}
           scale={1.4651729208193538}
           rotation={41}
-          speed={isMobile ? 0.38 : 0.71787265834734}
-          grainMixer={0.03}
-          grainOverlay={0.03}
+          speed={isMobile ? 0.3 : 0.5}
+          grainMixer={isMobile ? 0 : 0.04}
+          grainOverlay={isMobile ? 0 : 0.04}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         />
       </div>
 
-      {/* Fine grain texture overlay — desktop only (mixBlendMode causes GPU jank on mobile) */}
-      {!isMobile && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            opacity: 0.3,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")`,
-            backgroundSize: '128px 128px',
-            mixBlendMode: 'multiply',
-          }}
-        />
-      )}
-
-      {/* Multi-stop fade into white About section */}
+      {/* Fade into white About section */}
       <div
         className="absolute bottom-0 left-0 right-0 pointer-events-none"
         style={{
           height: '40%',
-          background: `linear-gradient(to bottom,
-            transparent 0%,
-            rgba(255,255,255,0.03) 15%,
-            rgba(255,255,255,0.1) 30%,
-            rgba(255,255,255,0.25) 45%,
-            rgba(255,255,255,0.5) 60%,
-            rgba(255,255,255,0.75) 75%,
-            rgba(255,255,255,0.92) 88%,
-            #ffffff 100%
-          )`,
+          background:
+            'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.5) 60%, #ffffff 100%)',
         }}
       />
 
