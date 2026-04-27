@@ -1,11 +1,12 @@
 import { Instagram, Mail, ArrowUpRight } from 'lucide-react'
+import { useT } from '../i18n'
 
-const navLinks = [
-  { label: 'Nosotros', href: '#nosotros' },
-  { label: 'Impacto', href: '#impacto' },
-  { label: 'Galeria', href: '#galeria' },
-  { label: 'Contacto', href: 'mailto:losminaunidosporsiempre@gmail.com', external: true },
-  { label: 'Donar', href: 'https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact', external: true },
+const navConfig = [
+  { key: 'nav.about', href: '#nosotros' },
+  { key: 'nav.impact', href: '#impacto' },
+  { key: 'nav.gallery', href: '#galeria' },
+  { key: 'nav.contact', href: 'mailto:losminaunidosporsiempre@gmail.com', external: true },
+  { key: 'nav.donate', href: 'https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact', external: true },
 ]
 
 function DominicanFlag() {
@@ -24,6 +25,8 @@ function DominicanFlag() {
 }
 
 export default function Footer() {
+  const { t } = useT()
+  const navLinks = navConfig.map((l) => ({ ...l, label: t(l.key) }))
   return (
     <footer id="contacto" className="relative bg-[#0C0C1A] overflow-hidden">
       {/* Top accent — three brand colors */}
@@ -46,19 +49,19 @@ export default function Footer() {
               </div>
             </a>
             <p className="font-sans text-white/55 text-[12px] leading-relaxed max-w-[260px] mb-6">
-              Transformando vidas a traves del deporte en Republica Dominicana. Una vida a la vez.
+              {t('footer.tagline')}
             </p>
             <div className="flex items-center gap-2.5">
               <DominicanFlag />
               <span className="font-sans text-white/70 text-[11px] tracking-wide font-medium">
-                Republica Dominicana
+                {t('footer.country')}
               </span>
             </div>
           </div>
 
           <div className="md:col-span-3 md:col-start-6">
             <h4 className="font-sans font-semibold text-white/50 text-[10px] uppercase tracking-[0.25em] mb-4">
-              Navegar
+              {t('footer.navHeading')}
             </h4>
             <ul className="space-y-2.5">
               {navLinks.map((link) => (
@@ -85,7 +88,7 @@ export default function Footer() {
 
           <div className="md:col-span-3 md:col-start-10">
             <h4 className="font-sans font-semibold text-white/50 text-[10px] uppercase tracking-[0.25em] mb-4">
-              Contacto
+              {t('footer.contactHeading')}
             </h4>
             <div className="space-y-3.5">
               <a href="https://www.instagram.com/losminaunidosxsiempre/" target="_blank" rel="noopener noreferrer"
@@ -109,7 +112,7 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-5 md:pt-6">
           <p className="font-sans text-white/40 text-[11px]">
-            &copy; 2026 LMUXS — Los Mina Unidos Por Siempre
+            {t('footer.copyright')}
           </p>
           <div className="flex items-center gap-1">
             <div className="w-2 h-2 rounded-full bg-[#002D62]" />

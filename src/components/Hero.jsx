@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { SlideArrowButton } from './ui/SlideArrowButton'
 import { MeshGradient } from '@paper-design/shaders-react'
+import { useT } from '../i18n'
 
 export default function Hero() {
   const containerRef = useRef(null)
+  const { t } = useT()
   // Initialize synchronously to avoid a re-render that resets the shader
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
@@ -85,7 +87,7 @@ export default function Hero() {
               marginBottom: '0.18em',
             }}
           >
-            Unidos por el juego,
+            {t('hero.title1')}
           </h1>
 
           {/* Bold sans headline */}
@@ -98,8 +100,8 @@ export default function Hero() {
               marginBottom: '1.2rem',
             }}
           >
-            Unidos para{' '}
-            <span style={{ color: '#CE1126' }}>siempre.</span>
+            {t('hero.title2a')}{' '}
+            <span style={{ color: '#CE1126' }}>{t('hero.title2b')}</span>
           </h1>
 
           {/* Subtitle */}
@@ -112,7 +114,7 @@ export default function Hero() {
               marginBottom: '2rem',
             }}
           >
-            Transformando vidas a traves del deporte en Republica Dominicana. Una vida a la vez.
+            {t('hero.subtitle')}
           </p>
 
           {/* CTA buttons */}
@@ -121,14 +123,14 @@ export default function Hero() {
               href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
               target="_blank"
               rel="noopener noreferrer"
-              text="Donar en GoFundMe"
+              text={t('hero.cta.gofundme')}
               className="bg-[#CE1126] text-white tracking-wide w-full sm:w-auto justify-center"
             />
             <SlideArrowButton
               href="https://www.paypal.com/donate/?hosted_button_id=9LZBLNNTUCW34"
               target="_blank"
               rel="noopener noreferrer"
-              text="Donar con PayPal"
+              text={t('hero.cta.paypal')}
               className="bg-[#002D62] text-white tracking-wide w-full sm:w-auto justify-center"
             />
           </div>

@@ -12,27 +12,30 @@ import {
   CardCurtain,
   useCardCurtainRevealContext,
 } from './ui/card-curtain-reveal'
+import { useT } from '../i18n'
 
-const stats = [
-  {
-    value: 300, suffix: '+', label: 'Jugadores Formados',
-    sub: 'Jovenes que han pasado por nuestros programas de baloncesto, creciendo como atletas y personas.',
-    icon: <Users size={18} />, accent: '#CE1126',
-    image: '/images/92e0a6fd-43b0-48d7-b330-c8efec53d1eb.jpg',
-  },
-  {
-    value: 18, suffix: '+', label: 'Torneos Ganados',
-    sub: 'Campeonatos locales y regionales que demuestran el talento y la disciplina de nuestra comunidad.',
-    icon: <Trophy size={18} />, accent: '#002D62',
-    image: '/images/de412b4d-9ed7-4096-8eb8-787f6332f666.jpg',
-  },
-  {
-    value: 8, suffix: '+', label: 'Anos de Impacto',
-    sub: 'Transformando comunidades desde 2016, construyendo un legado que trasciende generaciones.',
-    icon: <Clock size={18} />, accent: '#D4A843',
-    image: '/images/bbf481bc-4d55-44e8-9081-e98da354734a.jpg',
-  },
-]
+function buildStats(t) {
+  return [
+    {
+      value: 300, suffix: '+', label: t('stats.players'),
+      sub: t('stats.playersDesc'),
+      icon: <Users size={18} />, accent: '#CE1126',
+      image: '/images/92e0a6fd-43b0-48d7-b330-c8efec53d1eb.jpg',
+    },
+    {
+      value: 18, suffix: '+', label: t('stats.tournaments'),
+      sub: t('stats.tournamentsDesc'),
+      icon: <Trophy size={18} />, accent: '#002D62',
+      image: '/images/de412b4d-9ed7-4096-8eb8-787f6332f666.jpg',
+    },
+    {
+      value: 8, suffix: '+', label: t('stats.years'),
+      sub: t('stats.yearsDesc'),
+      icon: <Clock size={18} />, accent: '#D4A843',
+      image: '/images/bbf481bc-4d55-44e8-9081-e98da354734a.jpg',
+    },
+  ]
+}
 
 function CurtainPreview({ icon, label, accent }) {
   const { isMouseIn } = useCardCurtainRevealContext()
@@ -176,6 +179,8 @@ function Particles() {
 }
 
 export default function Stats() {
+  const { t } = useT()
+  const stats = buildStats(t)
   return (
     <section id="impacto" className="relative bg-[#E8E8EC] overflow-hidden scroll-mt-[88px] py-20 md:py-28">
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/[0.05] to-transparent" />
@@ -188,12 +193,12 @@ export default function Stats() {
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="w-6 h-[1px] bg-dominican-red" />
             <span className="font-sans text-[11px] uppercase tracking-[0.35em] text-dominican-red font-semibold">
-              Nuestro Impacto
+              {t('stats.eyebrow')}
             </span>
             <div className="w-6 h-[1px] bg-dominican-red" />
           </div>
           <h3 className="font-serif italic text-[#555] text-lg md:text-xl">
-            "Cada punto anotado es un futuro construido."
+            {t('stats.quote')}
           </h3>
         </div>
 

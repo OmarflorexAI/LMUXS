@@ -10,6 +10,7 @@ import Gallery from './components/Gallery'
 import Donate from './components/Donate'
 import Footer from './components/Footer'
 import VolunteerModal from './components/VolunteerModal'
+import { LangProvider } from './i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -21,23 +22,25 @@ export default function App() {
   const [volunteerOpen, setVolunteerOpen] = useState(false)
 
   return (
-    <div className="relative min-h-screen bg-[#F5F5F7] overflow-x-hidden">
-      <Navbar />
+    <LangProvider>
+      <div className="relative min-h-screen bg-[#F5F5F7] overflow-x-hidden">
+        <Navbar />
 
-      <main>
-        <Hero />
-        <About />
-        <Stats />
-        <Gallery />
-        <Donate onOpenVolunteer={() => setVolunteerOpen(true)} />
-      </main>
+        <main>
+          <Hero />
+          <About />
+          <Stats />
+          <Gallery />
+          <Donate onOpenVolunteer={() => setVolunteerOpen(true)} />
+        </main>
 
-      <Footer />
+        <Footer />
 
-      <VolunteerModal
-        isOpen={volunteerOpen}
-        onClose={() => setVolunteerOpen(false)}
-      />
-    </div>
+        <VolunteerModal
+          isOpen={volunteerOpen}
+          onClose={() => setVolunteerOpen(false)}
+        />
+      </div>
+    </LangProvider>
   )
 }

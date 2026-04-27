@@ -1,23 +1,25 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { X, CheckCircle2, ChevronDown } from 'lucide-react'
+import { useT } from '../i18n'
 
 const WEB3FORMS_ACCESS_KEY = 'e6107727-57be-4b54-82a6-8ac3529864aa'
 
-const AREAS = [
-  'Entrenamiento deportivo',
-  'Apoyo educativo',
-  'Organizacion de eventos',
-  'Fotografia y redes sociales',
-  'Nutricion y bienestar',
-  'Otro',
+// Stored as i18n keys; resolved at render time
+const AREA_KEYS = [
+  'donate.impact.training',
+  'donate.impact.education',
+  'volunteer.opt.events',
+  'volunteer.opt.media',
+  'donate.impact.nutrition',
+  'volunteer.opt.other',
 ]
 
-const AVAILABILITY = [
-  'Fines de semana',
-  'Entre semana (mananas)',
-  'Entre semana (tardes)',
-  'Flexible / cualquier horario',
+const AVAILABILITY_KEYS = [
+  'volunteer.opt.weekends',
+  'volunteer.opt.weekdayMorning',
+  'volunteer.opt.weekdayEvening',
+  'volunteer.opt.flexible',
 ]
 
 const inputBase =
@@ -39,7 +41,7 @@ function Field({ label, children, delay = 0 }) {
   )
 }
 
-function CustomSelect({ name, placeholder = 'Seleccionar...', options, required }) {
+function CustomSelect({ name, placeholder, options, required }) {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState('')
   const wrapperRef = useRef(null)
@@ -72,7 +74,7 @@ function CustomSelect({ name, placeholder = 'Seleccionar...', options, required 
 
   // Handle native form validation for required selects
   const handleInvalid = useCallback((e) => {
-    e.target.setCustomValidity('Por favor selecciona una opcion')
+    e.target.setCustomValidity(' ')
   }, [])
 
   return (
@@ -167,6 +169,9 @@ export default function VolunteerModal({ isOpen, onClose }) {
   const [error, setError] = useState(null)
   const panelRef = useRef(null)
   const firstInputRef = useRef(null)
+  const { t } = useT()
+  const AREAS = AREA_KEYS.map(t)
+  const AVAILABILITY = AVAILABILITY_KEYS.map(t)
 
   // Body scroll lock + Escape key
   useEffect(() => {
@@ -181,24 +186,24 @@ export default function VolunteerModal({ isOpen, onClose }) {
     window.addEventListener('keydown', handleKey)
 
     // Focus first input after animation
-    const t = setTimeout(() => firstInputRef.current?.focus(), 400)
+    const timer = setTimeout(() => firstInputRef.current?.focus(), 400)
 
     return () => {
       document.body.style.overflow = prev
       window.removeEventListener('keydown', handleKey)
-      clearTimeout(t)
+      clearTimeout(timer)
     }
   }, [isOpen, onClose])
 
   // Reset on close
   useEffect(() => {
     if (!isOpen) {
-      const t = setTimeout(() => {
+      const timer = setTimeout(() => {
         setSubmitted(false)
         setSubmitting(false)
         setError(null)
       }, 300)
-      return () => clearTimeout(t)
+      return () => clearTimeout(timer)
     }
   }, [isOpen])
 
@@ -233,11 +238,11 @@ export default function VolunteerModal({ isOpen, onClose }) {
         setSubmitting(false)
         setSubmitted(true)
       } else {
-        throw new Error(result.message || 'Error desconocido')
+        throw new Error(result.message || 'Error')
       }
     } catch {
       setSubmitting(false)
-      setError('No se pudo enviar el formulario. Por favor, intenta de nuevo.')
+      setError(t('volunteer.error'))
     }
   }
 
@@ -291,7 +296,7 @@ export default function VolunteerModal({ isOpen, onClose }) {
             <button
               onClick={onClose}
               className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/[0.04] hover:bg-black/[0.08] flex items-center justify-center transition-colors duration-200 z-10 cursor-pointer"
-              aria-label="Cerrar"
+              aria-label={t('volunteer.close')}
             >
               <X size={16} className="text-[#666]" />
             </button>
@@ -316,7 +321,7 @@ export default function VolunteerModal({ isOpen, onClose }) {
                     <div className="flex items-center gap-2.5 mb-3">
                       <div className="w-5 h-[2px] bg-[#CE1126] rounded-full" />
                       <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.2em] text-[#CE1126]">
-                        Unete al equipo
+                        {t('volunteer.eyebrow')}
                       </span>
                     </div>
                     <h2
@@ -324,10 +329,10 @@ export default function VolunteerModal({ isOpen, onClose }) {
                       className="font-serif italic font-normal text-[#1a1a2e] mb-2"
                       style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', lineHeight: 1.2 }}
                     >
-                      Se parte del cambio.
+                      {t('volunteer.heading')}
                     </h2>
                     <p className="font-sans text-[13px] leading-relaxed text-[#3a3a4a] max-w-[380px]">
-                      Completa el formulario y nos pondremos en contacto contigo.
+                      {t('volunteer.subtitle')}
                     </p>
                   </motion.div>
 
@@ -335,22 +340,22 @@ export default function VolunteerModal({ isOpen, onClose }) {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     {/* Row: Name + Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Field label="Nombre completo" delay={0}>
+                      <Field label={t('volunteer.field.name')} delay={0}>
                         <input
                           ref={firstInputRef}
                           type="text"
                           name="nombre"
                           required
-                          placeholder="Tu nombre"
+                          placeholder={t('volunteer.field.namePlaceholder')}
                           className={inputBase}
                         />
                       </Field>
-                      <Field label="Correo electronico" delay={0.04}>
+                      <Field label={t('volunteer.field.email')} delay={0.04}>
                         <input
                           type="email"
                           name="email"
                           required
-                          placeholder="correo@ejemplo.com"
+                          placeholder={t('volunteer.field.emailPlaceholder')}
                           className={inputBase}
                         />
                       </Field>
@@ -358,7 +363,7 @@ export default function VolunteerModal({ isOpen, onClose }) {
 
                     {/* Row: Phone + Area */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Field label="Telefono (WhatsApp)" delay={0.08}>
+                      <Field label={t('volunteer.field.phone')} delay={0.08}>
                         <input
                           type="tel"
                           name="telefono"
@@ -366,32 +371,32 @@ export default function VolunteerModal({ isOpen, onClose }) {
                           className={inputBase}
                         />
                       </Field>
-                      <Field label="Area de interes" delay={0.12}>
+                      <Field label={t('volunteer.field.area')} delay={0.12}>
                         <CustomSelect
                           name="area"
                           required
-                          placeholder="Seleccionar..."
+                          placeholder={t('volunteer.select.placeholder')}
                           options={AREAS}
                         />
                       </Field>
                     </div>
 
                     {/* Availability */}
-                    <Field label="Disponibilidad" delay={0.16}>
+                    <Field label={t('volunteer.field.availability')} delay={0.16}>
                       <CustomSelect
                         name="disponibilidad"
                         required
-                        placeholder="Seleccionar..."
+                        placeholder={t('volunteer.select.placeholder')}
                         options={AVAILABILITY}
                       />
                     </Field>
 
                     {/* Message */}
-                    <Field label="Mensaje (opcional)" delay={0.2}>
+                    <Field label={t('volunteer.field.message')} delay={0.2}>
                       <textarea
                         name="mensaje"
                         rows={3}
-                        placeholder="Cuentanos sobre ti y por que te gustaria ser voluntario..."
+                        placeholder={t('volunteer.field.messagePlaceholder')}
                         className={`${inputBase} resize-none`}
                       />
                     </Field>
@@ -434,7 +439,7 @@ export default function VolunteerModal({ isOpen, onClose }) {
                               className="flex items-center gap-2.5"
                             >
                               <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                              Enviando...
+                              {t('volunteer.submitting')}
                             </motion.span>
                           ) : (
                             <motion.span
@@ -444,7 +449,7 @@ export default function VolunteerModal({ isOpen, onClose }) {
                               exit={{ opacity: 0, y: -8 }}
                               transition={{ duration: 0.15 }}
                             >
-                              Enviar Solicitud
+                              {t('volunteer.submit')}
                             </motion.span>
                           )}
                         </AnimatePresence>
@@ -480,16 +485,16 @@ export default function VolunteerModal({ isOpen, onClose }) {
                     className="font-serif italic font-normal text-[#1a1a2e] mb-2"
                     style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)' }}
                   >
-                    Gracias por tu interes!
+                    {t('volunteer.success.title')}
                   </h3>
                   <p className="font-sans text-[14px] text-[#3a3a4a] mb-8 max-w-[320px] leading-relaxed">
-                    Hemos recibido tu solicitud. Te contactaremos pronto para los proximos pasos.
+                    {t('volunteer.success.body')}
                   </p>
                   <button
                     onClick={onClose}
                     className="font-sans font-semibold text-[13px] uppercase tracking-[0.15em] text-[#CE1126] hover:text-[#a30d1f] transition-colors duration-200 cursor-pointer"
                   >
-                    Cerrar
+                    {t('volunteer.success.close')}
                   </button>
                 </motion.div>
               )}

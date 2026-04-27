@@ -8,17 +8,20 @@ import {
 import { cn } from '../lib/utils'
 import { SlideArrowButton } from './ui/SlideArrowButton'
 import { HoverBorderGradient } from './ui/HoverBorderGradient'
+import { useT } from '../i18n'
 
-const impacts = [
-  { icon: <Dumbbell />, title: 'Entrenamiento deportivo', desc: 'Materiales, balones y coaching profesional para formar atletas con disciplina.' },
-  { icon: <Shirt />, title: 'Uniformes y equipos', desc: 'Un uniforme oficial para que cada joven represente su comunidad con orgullo.' },
-  { icon: <MapPin />, title: 'Acceso a canchas', desc: 'Alquiler de canchas para practicas semanales y torneos organizados.' },
-  { icon: <Users />, title: 'Torneos comunitarios', desc: 'Organizamos competencias que unen barrios y fortalecen lazos entre familias.' },
-  { icon: <GraduationCap />, title: 'Apoyo educativo', desc: 'Tutorias y becas para que el deporte sea un puente hacia la educacion.' },
-  { icon: <Apple />, title: 'Nutricion y bienestar', desc: 'Programas de alimentacion saludable para los jovenes atletas en desarrollo.' },
-  { icon: <Bus />, title: 'Transporte seguro', desc: 'Traslado seguro a juegos y entrenamientos para jugadores de toda la zona.' },
-  { icon: <Heart />, title: 'Construir comunidad', desc: 'Cada donacion fortalece el tejido social de Los Mina a traves del deporte.' },
-]
+function buildImpacts(t) {
+  return [
+    { icon: <Dumbbell />, title: t('donate.impact.training'),    desc: t('donate.impact.trainingDesc') },
+    { icon: <Shirt />,    title: t('donate.impact.uniforms'),    desc: t('donate.impact.uniformsDesc') },
+    { icon: <MapPin />,   title: t('donate.impact.courts'),      desc: t('donate.impact.courtsDesc') },
+    { icon: <Users />,    title: t('donate.impact.tournaments'), desc: t('donate.impact.tournamentsDesc') },
+    { icon: <GraduationCap />, title: t('donate.impact.education'), desc: t('donate.impact.educationDesc') },
+    { icon: <Apple />,    title: t('donate.impact.nutrition'),   desc: t('donate.impact.nutritionDesc') },
+    { icon: <Bus />,      title: t('donate.impact.transport'),   desc: t('donate.impact.transportDesc') },
+    { icon: <Heart />,    title: t('donate.impact.community'),   desc: t('donate.impact.communityDesc') },
+  ]
+}
 
 function ImpactCard({ icon, title, desc, index }) {
   const isTopRow = index < 4
@@ -65,6 +68,8 @@ function ImpactCard({ icon, title, desc, index }) {
 
 export default function Donate({ onOpenVolunteer }) {
   const sectionRef = useRef(null)
+  const { t } = useT()
+  const impacts = buildImpacts(t)
 
   useEffect(() => {
     const mobile = window.innerWidth < 768
@@ -101,22 +106,22 @@ export default function Donate({ onOpenVolunteer }) {
           <div className="inline-flex items-center gap-2.5 mb-8">
             <div className="w-6 h-[1px] bg-dominican-red" />
             <span className="font-sans text-[11px] uppercase tracking-[0.35em] font-semibold text-dominican-red">
-              Haz la diferencia
+              {t('donate.eyebrow')}
             </span>
             <div className="w-6 h-[1px] bg-dominican-red" />
           </div>
 
           <h2 className="font-serif italic leading-[0.95] text-[#1a1a2e] mb-6"
             style={{ fontSize: 'clamp(2.6rem,5.5vw,4.8rem)' }}>
-            Tu donacion<br />
+            {t('donate.title1')}<br />
             <span className="font-sans not-italic font-black tracking-tight"
               style={{ fontSize: 'clamp(2rem,4.5vw,3.8rem)', color: '#CE1126' }}>
-              cambia vidas.
+              {t('donate.title2')}
             </span>
           </h2>
 
           <p className="font-sans text-[15px] leading-relaxed mx-auto max-w-lg text-[#333]">
-            Cada dolar va directamente a los jovenes de Los Mina. Sin intermediarios. Solo impacto real, medible y duradero.
+            {t('donate.subtitle')}
           </p>
         </div>
 
@@ -139,14 +144,14 @@ export default function Donate({ onOpenVolunteer }) {
               href="https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact"
               target="_blank"
               rel="noopener noreferrer"
-              text="Donar en GoFundMe"
+              text={t('hero.cta.gofundme')}
               className="bg-[#CE1126] text-white text-[15px] tracking-wide w-full sm:w-auto justify-center"
             />
             <SlideArrowButton
               href="https://www.paypal.com/donate/?hosted_button_id=9LZBLNNTUCW34"
               target="_blank"
               rel="noopener noreferrer"
-              text="Donar con PayPal"
+              text={t('hero.cta.paypal')}
               className="bg-[#002D62] text-white text-[15px] tracking-wide w-full sm:w-auto justify-center"
             />
             <HoverBorderGradient
@@ -155,7 +160,7 @@ export default function Donate({ onOpenVolunteer }) {
               containerClassName="w-full sm:w-auto h-12"
               className="font-sans font-bold text-[14px] tracking-wide px-7 h-full flex items-center"
             >
-              Sé Voluntario
+              {t('donate.cta.volunteer')}
             </HoverBorderGradient>
           </div>
         </div>

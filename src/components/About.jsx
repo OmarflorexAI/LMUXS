@@ -1,15 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-const cards = [
-  { k: 'Fundacion', v: '2016', accent: '#CE1126' },
-  { k: 'Sede', v: 'Los Mina, R.D.', accent: '#002D62' },
-  { k: 'Tipo', v: 'Non-Profit', accent: '#D4A843' },
-]
+import { useT } from '../i18n'
 
 export default function About() {
   const sectionRef = useRef(null)
+  const { t } = useT()
+  const cards = [
+    { k: t('about.card.foundation'), v: t('about.card.foundationVal'), accent: '#CE1126' },
+    { k: t('about.card.location'), v: t('about.card.locationVal'), accent: '#002D62' },
+    { k: t('about.card.type'), v: t('about.card.typeVal'), accent: '#D4A843' },
+  ]
 
   useEffect(() => {
     const mobile = window.innerWidth < 768
@@ -48,26 +49,26 @@ export default function About() {
           <div className="about-reveal flex items-center gap-3 mb-8">
             <div className="w-6 h-[1px] bg-dominican-red" />
             <span className="font-sans text-[11px] uppercase tracking-[0.35em] text-dominican-red font-semibold">
-              Nuestra Historia
+              {t('about.eyebrow')}
             </span>
           </div>
 
           <h2 className="about-reveal font-serif italic text-[clamp(2.4rem,4.5vw,3.8rem)] leading-[1.04] text-[#1a1a2e] mb-8">
-            Nacio en las calles<br />
+            {t('about.title1')}<br />
             <em className="not-italic font-sans font-black text-[clamp(2rem,3.8vw,3.2rem)] tracking-tight text-[#2a2a3e]">
-              de Los Mina.
+              {t('about.title2')}
             </em>
           </h2>
 
           <div className="space-y-5">
             <p className="about-reveal font-sans text-[#2a2a2a] text-[15px] leading-[1.75]">
-              LMUXS nacio de una idea simple pero poderosa: el baloncesto puede cambiar vidas. En Los Mina, Republica Dominicana, jovenes decidieron que la cancha seria su aula, su refugio y su familia.
+              {t('about.p1')}
             </p>
             <p className="about-reveal font-sans text-[#2a2a2a] text-[15px] leading-[1.75]">
-              Hemos formado cientos de atletas, organizado torneos que unen comunidades y demostrado que el deporte es el lenguaje universal de la unidad.
+              {t('about.p2')}
             </p>
             <p className="about-reveal font-sans text-[#555] text-[14px] leading-[1.75] italic">
-              "Unidos por el juego, unidos para siempre."
+              {t('about.quote')}
             </p>
           </div>
 
@@ -107,7 +108,7 @@ export default function About() {
           </div>
           <div className="absolute top-[68%] right-0 -translate-y-1/2 bg-dominican-red text-white rounded-2xl px-4 py-3 text-center z-10 hidden md:block shadow-lg shadow-dominican-red/25">
             <div className="font-sans font-black text-2xl leading-none">8+</div>
-            <div className="font-sans text-[10px] uppercase tracking-wider text-white/80 mt-0.5">anos</div>
+            <div className="font-sans text-[10px] uppercase tracking-wider text-white/80 mt-0.5">{t('about.years')}</div>
           </div>
         </div>
       </div>

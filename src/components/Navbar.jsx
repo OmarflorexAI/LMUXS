@@ -2,18 +2,22 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { motion, LayoutGroup } from 'motion/react'
 import { Menu, X, Users, Trophy, Image, Mail } from 'lucide-react'
+import { useT } from '../i18n'
+import LanguageSwitcher from './LanguageSwitcher'
 
-const links = [
-  { label: 'Nosotros', href: '#nosotros', icon: Users },
-  { label: 'Impacto', href: '#impacto', icon: Trophy },
-  { label: 'Galeria', href: '#galeria', icon: Image },
-  { label: 'Contacto', href: '#contacto', icon: Mail },
+const linksConfig = [
+  { key: 'nav.about', href: '#nosotros', icon: Users },
+  { key: 'nav.impact', href: '#impacto', icon: Trophy },
+  { key: 'nav.gallery', href: '#galeria', icon: Image },
+  { key: 'nav.contact', href: '#contacto', icon: Mail },
 ]
 
 export default function Navbar() {
   const pillRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeTab, setActiveTab] = useState(null)
+  const { t } = useT()
+  const links = linksConfig.map((l) => ({ ...l, label: t(l.key) }))
 
   useEffect(() => {
     const el = pillRef.current
@@ -168,7 +172,8 @@ export default function Navbar() {
         </motion.nav>
         </LayoutGroup>
 
-        <div className="flex items-center justify-end pr-0.5">
+        <div className="flex items-center justify-end gap-1 pr-0.5">
+          <LanguageSwitcher />
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden w-7 h-7 flex items-center justify-center rounded-full text-[#1a1a2e] transition-colors duration-200"
