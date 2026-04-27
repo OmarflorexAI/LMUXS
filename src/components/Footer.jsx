@@ -42,7 +42,14 @@ export default function Footer() {
               e.preventDefault()
               window.scrollTo({ top: 0, behavior: 'smooth' })
             }} className="flex items-center gap-2.5 mb-6 group w-fit">
-              <img src="/logo.png" alt="LMUXS" className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+              <img
+                src="/logo.png"
+                alt="LMUXS"
+                width="540"
+                height="462"
+                decoding="async"
+                className="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.04]"
+              />
               <div>
                 <div className="font-sans font-black text-white text-sm tracking-[0.18em] uppercase">LMUXS</div>
                 <div className="font-sans text-white/55 text-[9px] tracking-[0.15em] uppercase">Los Mina Unidos Por Siempre</div>

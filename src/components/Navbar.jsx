@@ -112,13 +112,18 @@ export default function Navbar() {
           <img
             src="/logo.png"
             alt="LMUXS"
-            className="h-9 w-auto transition-transform duration-300 group-hover:scale-105"
+            width="540"
+            height="462"
+            decoding="async"
+            loading="eager"
+            className="h-14 w-auto transition-transform duration-300 group-hover:scale-[1.04]"
+            style={{ imageRendering: 'auto' }}
           />
-          <div className="hidden sm:flex flex-col leading-none gap-0.5">
-            <span className="font-sans font-black text-[#1a1a2e] text-[11px] tracking-[0.2em] uppercase leading-none">
+          <div className="hidden sm:flex flex-col leading-none gap-1">
+            <span className="font-sans font-black text-[#1a1a2e] text-[13px] tracking-[0.2em] uppercase leading-none">
               LMUXS
             </span>
-            <span className="font-sans text-[#777] text-[8px] tracking-[0.12em] uppercase leading-none">
+            <span className="font-sans text-[#777] text-[9px] tracking-[0.12em] uppercase leading-none">
               Los Mina Unidos
             </span>
           </div>
