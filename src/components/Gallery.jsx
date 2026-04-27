@@ -210,15 +210,12 @@ function ImageTile({ tile, t }) {
         }}
       />
 
-      {/* Top-left: index + accent dot */}
-      <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-2">
+      {/* Top-left: accent dot */}
+      <div className="absolute top-3.5 left-3.5 z-10">
         <span
-          className="w-1.5 h-1.5 rounded-full"
-          style={{ background: tile.accent, boxShadow: `0 0 0 3px ${tile.accent}33` }}
+          className="block w-2 h-2 rounded-full"
+          style={{ background: tile.accent, boxShadow: `0 0 0 4px ${tile.accent}22` }}
         />
-        <span className="font-sans text-[9px] uppercase tracking-[0.28em] font-bold text-white/85">
-          {tile.n}
-        </span>
       </div>
 
       {/* Bottom-left: category + (optional) caption */}
@@ -245,40 +242,33 @@ function ImageTile({ tile, t }) {
 function QuoteTile({ tile, t }) {
   return (
     <div
-      className={`g-tile relative overflow-hidden rounded-2xl flex flex-col justify-between p-6 md:p-7 ${tile.span || ''} aspect-square md:aspect-auto col-span-2`}
+      className={`g-tile relative overflow-hidden rounded-2xl flex flex-col justify-between p-7 md:p-8 ${tile.span || ''} aspect-square md:aspect-auto col-span-2`}
       style={{
-        background:
-          'linear-gradient(135deg, #1a1a2e 0%, #001b3e 55%, #002D62 100%)',
-        border: '1px solid rgba(255,255,255,0.06)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.18), inset 0 0 80px rgba(206,17,38,0.05)',
+        background: 'linear-gradient(140deg, #14142a 0%, #1a1a3a 55%, #1f244a 100%)',
+        border: '1px solid rgba(255,255,255,0.05)',
+        boxShadow: '0 6px 24px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.06)',
       }}
     >
-      {/* Subtle radial accent in corner */}
-      <div
-        className="absolute -top-12 -right-12 w-48 h-48 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(206,17,38,0.18) 0%, transparent 70%)',
-        }}
-      />
+      {/* Hairline accent at top */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
       {/* Decorative quote mark */}
       <div
-        className="font-serif text-[120px] leading-none text-white/[0.07] -mt-2 -mb-4 select-none pointer-events-none"
+        className="font-serif text-[140px] leading-none text-white/[0.06] -mt-4 -mb-6 select-none pointer-events-none"
         aria-hidden="true"
       >
         &ldquo;
       </div>
 
       <blockquote className="relative z-10">
-        <p className="font-serif italic text-[clamp(1.05rem,1.6vw,1.4rem)] leading-[1.4] text-white/95 max-w-[34ch]">
+        <p className="font-serif italic text-[clamp(1.1rem,1.7vw,1.45rem)] leading-[1.4] text-white/95 max-w-[34ch]">
           {t('gallery.quote')}
         </p>
       </blockquote>
 
-      <div className="relative z-10 flex items-center gap-2 mt-4">
+      <div className="relative z-10 flex items-center gap-2 mt-5">
         <div className="h-[1px] w-6 bg-dominican-red" />
-        <span className="font-sans text-[10px] uppercase tracking-[0.28em] font-semibold text-white/70">
+        <span className="font-sans text-[10px] uppercase tracking-[0.28em] font-semibold text-white/65">
           {t('gallery.quoteAttr')}
         </span>
       </div>
