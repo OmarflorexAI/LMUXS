@@ -3,59 +3,95 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useT } from '../i18n'
 
+const RED = '#CE1126'
+const BLUE = '#002D62'
+const GOLD = '#D4A843'
+
 const tiles = [
+  // [type, src OR null, span, category-key, caption-key, accent-color, index]
   {
+    type: 'image',
     src: '/images/92e0a6fd-43b0-48d7-b330-c8efec53d1eb.jpg',
     span: 'md:col-span-2 md:row-span-2',
-    badge: '01',
-    accent: '#CE1126',
+    cat: 'gallery.cat.family',
+    cap: 'gallery.cap.family',
+    accent: RED,
+    n: '01',
+    showCap: true,
   },
   {
-    src: '/images/de412b4d-9ed7-4096-8eb8-787f6332f666.jpg',
-    span: 'md:col-span-1 md:row-span-1',
-    badge: '02',
-  },
-  {
+    type: 'image',
     src: '/images/kenneth-schipper-bneCT1T_RXQ-unsplash.jpg',
     span: 'md:col-span-1 md:row-span-2',
-    badge: '03',
+    cat: 'gallery.cat.action',
+    cap: 'gallery.cap.action',
+    accent: BLUE,
+    n: '02',
+    showCap: true,
   },
   {
+    type: 'image',
+    src: '/images/de412b4d-9ed7-4096-8eb8-787f6332f666.jpg',
+    span: 'md:col-span-1 md:row-span-1',
+    cat: 'gallery.cat.team',
+    accent: GOLD,
+    n: '03',
+  },
+  {
+    type: 'image',
     src: '/images/bbf481bc-4d55-44e8-9081-e98da354734a.jpg',
     span: 'md:col-span-1 md:row-span-1',
-    badge: '04',
+    cat: 'gallery.cat.passion',
+    accent: RED,
+    n: '04',
   },
   {
-    src: '/images/josue-escoto-lij7YezX6fs-unsplash.jpg',
+    type: 'quote',
     span: 'md:col-span-2 md:row-span-1',
-    badge: '05',
+    accent: BLUE,
+    n: '—',
   },
   {
+    type: 'image',
+    src: '/images/josue-escoto-lij7YezX6fs-unsplash.jpg',
+    span: 'md:col-span-1 md:row-span-1',
+    cat: 'gallery.cat.legacy',
+    accent: GOLD,
+    n: '05',
+  },
+  {
+    type: 'image',
     src: '/images/6b2b4380-7005-4524-978d-204f9acdc03e.jpg',
     span: 'md:col-span-1 md:row-span-1',
-    badge: '06',
-    accent: '#002D62',
+    cat: 'gallery.cat.community',
+    accent: BLUE,
+    n: '06',
   },
   {
-    src: '/images/ad9f7594-9cdb-4f3d-b60d-2469ddd23e01.jpg',
-    span: 'md:col-span-1 md:row-span-1',
-    badge: '07',
-  },
-  {
+    type: 'image',
     src: '/images/becca-boyd-k6rbJF-gn7M-unsplash.jpg',
     span: 'md:col-span-2 md:row-span-1',
-    badge: '08',
+    cat: 'gallery.cat.training',
+    cap: 'gallery.cap.training',
+    accent: RED,
+    n: '07',
+    showCap: true,
   },
   {
-    src: '/images/b1c10c4d-a8f6-47e9-9ae8-7b754246b582.jpg',
+    type: 'image',
+    src: '/images/ad9f7594-9cdb-4f3d-b60d-2469ddd23e01.jpg',
     span: 'md:col-span-1 md:row-span-1',
-    badge: '09',
+    cat: 'gallery.cat.youth',
+    accent: GOLD,
+    n: '08',
   },
   {
+    type: 'image',
     src: '/images/0905dd8c-0535-4d93-9076-e1f43320a8fb.jpg',
     span: 'md:col-span-1 md:row-span-1',
-    badge: '10',
-    accent: '#D4A843',
+    cat: 'gallery.cat.team',
+    accent: BLUE,
+    n: '09',
   },
 ]
 
@@ -100,7 +136,7 @@ export default function Gallery() {
     <section
       ref={sectionRef}
       id="galeria"
-      className="relative bg-white py-24 md:py-36 overflow-hidden scroll-mt-[88px]"
+      className="relative bg-[#FAFAF9] py-24 md:py-36 overflow-hidden scroll-mt-[88px]"
     >
       <div
         className="absolute top-0 left-0 right-0 h-[1px]"
@@ -131,62 +167,121 @@ export default function Gallery() {
 
         <div
           className="g-grid grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 grid-flow-dense"
-          style={{ gridAutoRows: 'minmax(160px, 1fr)' }}
+          style={{ gridAutoRows: 'minmax(170px, 1fr)' }}
         >
-          {tiles.map((tile, i) => (
-            <figure
-              key={i}
-              className={`g-tile group relative overflow-hidden rounded-2xl bg-[#1a1a2e] aspect-square md:aspect-auto ${tile.span || ''}`}
-              style={{
-                boxShadow: '0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
-                transform: 'translateZ(0)',
-              }}
-            >
-              <img
-                src={tile.src}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-              />
-
-              {/* Subtle bottom gradient (always visible, ensures contrast for badge) */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-                style={{
-                  background:
-                    'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)',
-                }}
-              />
-
-              {/* Index badge — always visible */}
-              <div className="absolute top-3.5 left-3.5 flex items-center gap-2 z-10">
-                <span
-                  className="font-sans text-[9px] uppercase tracking-[0.25em] font-semibold px-2 py-1 rounded-full backdrop-blur-md"
-                  style={{
-                    background: 'rgba(255,255,255,0.18)',
-                    color: '#fff',
-                    border: '1px solid rgba(255,255,255,0.18)',
-                  }}
-                >
-                  {tile.badge}
-                </span>
-              </div>
-
-              {/* Accent corner mark for featured tiles */}
-              {tile.accent && (
-                <div
-                  className="absolute top-3.5 right-3.5 w-2 h-2 rounded-full z-10"
-                  style={{
-                    background: tile.accent,
-                    boxShadow: `0 0 0 4px ${tile.accent}33`,
-                  }}
-                />
-              )}
-            </figure>
-          ))}
+          {tiles.map((tile, i) =>
+            tile.type === 'quote' ? (
+              <QuoteTile key={i} tile={tile} t={t} />
+            ) : (
+              <ImageTile key={i} tile={tile} t={t} />
+            )
+          )}
         </div>
       </div>
     </section>
+  )
+}
+
+function ImageTile({ tile, t }) {
+  return (
+    <figure
+      className={`g-tile group relative overflow-hidden rounded-2xl bg-[#1a1a2e] aspect-square md:aspect-auto ${tile.span || ''}`}
+      style={{
+        boxShadow: '0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
+        border: '1px solid rgba(0,0,0,0.06)',
+        transform: 'translateZ(0)',
+      }}
+    >
+      <img
+        src={tile.src}
+        alt={t(tile.cat)}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+      />
+
+      {/* Bottom gradient — softer at top, deeper at bottom for caption legibility */}
+      <div
+        className="absolute inset-x-0 bottom-0 pointer-events-none"
+        style={{
+          height: tile.showCap ? '55%' : '38%',
+          background:
+            'linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.25) 60%, transparent 100%)',
+        }}
+      />
+
+      {/* Top-left: index + accent dot */}
+      <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-2">
+        <span
+          className="w-1.5 h-1.5 rounded-full"
+          style={{ background: tile.accent, boxShadow: `0 0 0 3px ${tile.accent}33` }}
+        />
+        <span className="font-sans text-[9px] uppercase tracking-[0.28em] font-bold text-white/85">
+          {tile.n}
+        </span>
+      </div>
+
+      {/* Bottom-left: category + (optional) caption */}
+      <figcaption className="absolute left-4 right-4 bottom-4 z-10 text-white">
+        <div className="flex items-center gap-2 mb-1">
+          <div
+            className="h-[1px] w-5"
+            style={{ background: tile.accent, opacity: 0.9 }}
+          />
+          <span className="font-sans text-[10px] uppercase tracking-[0.28em] font-bold text-white/95">
+            {t(tile.cat)}
+          </span>
+        </div>
+        {tile.showCap && (
+          <p className="font-serif italic text-[15px] sm:text-[16px] leading-tight text-white max-w-[34ch]">
+            {t(tile.cap)}
+          </p>
+        )}
+      </figcaption>
+    </figure>
+  )
+}
+
+function QuoteTile({ tile, t }) {
+  return (
+    <div
+      className={`g-tile relative overflow-hidden rounded-2xl flex flex-col justify-between p-6 md:p-7 ${tile.span || ''} aspect-square md:aspect-auto col-span-2`}
+      style={{
+        background:
+          'linear-gradient(135deg, #1a1a2e 0%, #001b3e 55%, #002D62 100%)',
+        border: '1px solid rgba(255,255,255,0.06)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.18), inset 0 0 80px rgba(206,17,38,0.05)',
+      }}
+    >
+      {/* Subtle radial accent in corner */}
+      <div
+        className="absolute -top-12 -right-12 w-48 h-48 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(206,17,38,0.18) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Decorative quote mark */}
+      <div
+        className="font-serif text-[120px] leading-none text-white/[0.07] -mt-2 -mb-4 select-none pointer-events-none"
+        aria-hidden="true"
+      >
+        &ldquo;
+      </div>
+
+      <blockquote className="relative z-10">
+        <p className="font-serif italic text-[clamp(1.05rem,1.6vw,1.4rem)] leading-[1.4] text-white/95 max-w-[34ch]">
+          {t('gallery.quote')}
+        </p>
+      </blockquote>
+
+      <div className="relative z-10 flex items-center gap-2 mt-4">
+        <div className="h-[1px] w-6 bg-dominican-red" />
+        <span className="font-sans text-[10px] uppercase tracking-[0.28em] font-semibold text-white/70">
+          {t('gallery.quoteAttr')}
+        </span>
+      </div>
+    </div>
   )
 }

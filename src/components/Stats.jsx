@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowUpRight, Users, Trophy, Clock } from 'lucide-react'
+import { ArrowUpRight, Users, HandHeart, Clock } from 'lucide-react'
 import { motion } from 'motion/react'
 import {
   CardCurtainReveal,
@@ -23,10 +23,10 @@ function buildStats(t) {
       image: '/images/92e0a6fd-43b0-48d7-b330-c8efec53d1eb.jpg',
     },
     {
-      value: 18, suffix: '+', label: t('stats.tournaments'),
-      sub: t('stats.tournamentsDesc'),
-      icon: <Trophy size={18} />, accent: '#002D62',
-      image: '/images/de412b4d-9ed7-4096-8eb8-787f6332f666.jpg',
+      value: 500, suffix: '+', label: t('stats.families'),
+      sub: t('stats.familiesDesc'),
+      icon: <HandHeart size={18} />, accent: '#002D62',
+      image: '/images/5404f636-925e-4f7d-a6f8-994030b66d26.jpg',
     },
     {
       value: 8, suffix: '+', label: t('stats.years'),
