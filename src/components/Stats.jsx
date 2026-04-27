@@ -23,7 +23,7 @@ function buildStats(t) {
       image: '/images/92e0a6fd-43b0-48d7-b330-c8efec53d1eb.jpg',
     },
     {
-      value: 500, suffix: '+', label: t('stats.families'),
+      value: 120, suffix: '+', label: t('stats.families'),
       sub: t('stats.familiesDesc'),
       icon: <HandHeart size={18} />, accent: '#002D62',
       image: '/images/5404f636-925e-4f7d-a6f8-994030b66d26.jpg',
