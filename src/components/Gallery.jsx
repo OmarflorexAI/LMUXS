@@ -165,10 +165,7 @@ export default function Gallery() {
           </p>
         </div>
 
-        <div
-          className="g-grid grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 grid-flow-dense"
-          style={{ gridAutoRows: 'minmax(170px, 1fr)' }}
-        >
+        <div className="g-grid grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 md:grid-flow-dense md:[grid-auto-rows:minmax(180px,1fr)]">
           {tiles.map((tile, i) =>
             tile.type === 'quote' ? (
               <QuoteTile key={i} tile={tile} t={t} />
@@ -242,7 +239,7 @@ function ImageTile({ tile, t }) {
 function QuoteTile({ tile, t }) {
   return (
     <div
-      className={`g-tile relative overflow-hidden rounded-2xl flex flex-col justify-between p-7 md:p-8 ${tile.span || ''} aspect-square md:aspect-auto col-span-2`}
+      className={`g-tile relative overflow-hidden rounded-2xl flex flex-col justify-between p-6 md:p-8 ${tile.span || ''} aspect-[5/3] md:aspect-auto col-span-2`}
       style={{
         background: 'linear-gradient(140deg, #14142a 0%, #1a1a3a 55%, #1f244a 100%)',
         border: '1px solid rgba(255,255,255,0.05)',
