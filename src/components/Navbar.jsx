@@ -17,6 +17,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const [activeTab, setActiveTab] = useState(null)
+  const clickLockUntil = useRef(0)
   const { t } = useT()
   const links = linksConfig.map((l) => ({ ...l, label: t(l.key) }))
 
@@ -82,7 +83,9 @@ export default function Navbar() {
       if (!el) return
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) setActiveTab(`#${id}`)
+          if (!entry.isIntersecting) return
+          if (Date.now() < clickLockUntil.current) return
+          setActiveTab(`#${id}`)
         },
         { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
       )
@@ -116,6 +119,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault()
+                    clickLockUntil.current = Date.now() + 900
                     setActiveTab(link.href)
                     const target = document.querySelector(link.href)
                     if (target) {
@@ -207,6 +211,7 @@ export default function Navbar() {
                     href={link.href}
                     onClick={(e) => {
                       e.preventDefault()
+                      clickLockUntil.current = Date.now() + 900
                       setActiveTab(link.href)
                       setMenuOpen(false)
                       const target = document.querySelector(link.href)

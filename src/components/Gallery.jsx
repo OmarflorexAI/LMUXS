@@ -58,9 +58,9 @@ const events = [
     ],
   },
   {
-    id: 'los-mina-2024',
-    city: 'Los Mina',
-    year: '2024',
+    id: 'san-francisco-2025',
+    city: 'San Francisco',
+    year: '2025',
     photos: [
       '/images/e0f402c1-5d25-44ea-bb8f-d9288faa6bd1.jpeg',
       '/images/e1ef8420-5be2-443d-8f6c-c34b26d07bf1.jpeg',
