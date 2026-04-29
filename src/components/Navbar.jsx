@@ -93,7 +93,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 flex justify-end">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 flex justify-center">
       <div
         ref={pillRef}
         className="inline-flex items-center gap-1 px-2 py-1 rounded-full border"
@@ -178,7 +178,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-full right-4 mt-2 z-40 min-w-[220px] rounded-2xl px-3 py-3 border md:hidden"
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 z-40 w-[88vw] max-w-[280px] rounded-2xl px-3 py-3 border md:hidden"
             style={{
               background: 'rgba(255,255,255,0.97)',
               backdropFilter: 'blur(24px) saturate(1.4)',

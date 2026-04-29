@@ -6,15 +6,15 @@ import { MapPin } from 'lucide-react'
 import { useT } from '../i18n'
 
 // ─── Events: each is a city + year + 5 photos ────────────────────────────
-// Cities/years are placeholders — replace with actual event metadata when
-// the user provides them. The 25 user-supplied photos are split 5-per-event.
+// Each event leads with its hero photo (the named one identifying the
+// city/year), followed by 4 additional moments from that event.
 const events = [
   {
-    id: 'puerto-plata-2020',
-    city: 'Puerto Plata',
-    year: '2020',
+    id: 'constanza-2021',
+    city: 'Constanza',
+    year: '2021',
     photos: [
-      '/images/14052547-1226-416b-96ac-d9c2d4608571.jpeg',
+      '/images/Constanza2021.jpeg',
       '/images/4d38bd8c-ab4b-4b46-8174-ddef19d6d185.jpeg',
       '/images/4ebede57-e2bc-40aa-9a18-2be07954c555.jpeg',
       '/images/508df95d-9af7-4d51-8b96-37013a412a27.jpeg',
@@ -22,27 +22,39 @@ const events = [
     ],
   },
   {
-    id: 'monte-plata-2022',
-    city: 'Monte Plata',
+    id: 'macao-2022',
+    city: 'Macao',
     year: '2022',
     photos: [
+      '/images/macao2022.jpeg',
+      '/images/macao2.jpeg',
+      '/images/macao3.jpeg',
       '/images/627ec46a-cf71-4154-aa52-500d5d51d5c8.jpeg',
-      '/images/8442c998-ec51-4e42-932e-335ac7b42009.jpeg',
       '/images/84b97b71-bf1d-4949-84ca-0fb246a801bb.jpeg',
-      '/images/864fe915-0958-439f-86df-8d5f0885747f.jpeg',
-      '/images/936dbc9e-1e18-45fa-b68b-ff1b7d2ee1bd.jpeg',
     ],
   },
   {
-    id: 'monte-cristi-2023',
-    city: 'Monte Cristi',
-    year: '2023',
+    id: 'san-juan-2022',
+    city: 'San Juan',
+    year: '2022',
     photos: [
+      '/images/sanjuan2022.jpeg',
+      '/images/936dbc9e-1e18-45fa-b68b-ff1b7d2ee1bd.jpeg',
       '/images/96016db0-d0c5-4654-8d0f-ea8ef24728c0.jpeg',
       '/images/9e2e244c-7c19-4382-8731-ed93d13e311c.jpeg',
       '/images/a5388225-6aeb-44fd-b5e5-a08d2c543e7a.jpeg',
-      '/images/acf3ceb7-b196-4cf2-abca-4458e539594a.jpeg',
+    ],
+  },
+  {
+    id: 'san-cristobal-2024',
+    city: 'San Cristóbal',
+    year: '2024',
+    photos: [
+      '/images/san_cristobal_2024.jpeg',
       '/images/b6e0c006-1f4c-439f-9734-f9034a3cb832.jpeg',
+      '/images/beb4d983-e8c7-4cdb-a236-3a19b1a94472.jpeg',
+      '/images/c135b12d-0fa1-46a4-ae3a-d03f871a08e7.jpeg',
+      '/images/d5908b34-1c2a-4f7f-9360-004dde5bb6b7.jpeg',
     ],
   },
   {
@@ -50,21 +62,9 @@ const events = [
     city: 'Los Mina',
     year: '2024',
     photos: [
-      '/images/bddc4b25-ab31-4b38-a32c-553b34abef41.jpeg',
-      '/images/beb4d983-e8c7-4cdb-a236-3a19b1a94472.jpeg',
-      '/images/c135b12d-0fa1-46a4-ae3a-d03f871a08e7.jpeg',
-      '/images/d5908b34-1c2a-4f7f-9360-004dde5bb6b7.jpeg',
       '/images/e0f402c1-5d25-44ea-bb8f-d9288faa6bd1.jpeg',
-    ],
-  },
-  {
-    id: 'santiago-2025',
-    city: 'Santiago',
-    year: '2025',
-    photos: [
       '/images/e1ef8420-5be2-443d-8f6c-c34b26d07bf1.jpeg',
       '/images/e9b4362e-8de3-4fc4-8adc-7bb9a6c43d75.jpeg',
-      '/images/ea141b3d-3d22-4038-b2c4-0c6846cdc88a.jpeg',
       '/images/f27271ef-a916-4d31-8555-cf9384af9635.jpeg',
       '/images/f56c74be-58fe-47a9-ab9f-be5e7b70bb06.jpeg',
     ],
@@ -249,22 +249,21 @@ export default function Gallery() {
         <AnimatePresence mode="wait">
           <motion.div
             key={active.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={false}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.18, ease: EASE }}
             className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 md:grid-flow-dense md:[grid-auto-rows:minmax(180px,1fr)]"
           >
             {active.photos.map((src, i) => (
               <motion.figure
                 key={`${active.id}-${i}`}
-                initial={{ opacity: 0, y: 28, scale: 0.95 }}
+                initial={{ opacity: 0, y: 22, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                exit={{ opacity: 0, y: -6, scale: 0.98 }}
                 transition={{
-                  duration: 0.55,
+                  duration: 0.5,
                   ease: EASE,
-                  delay: 0.06 + i * 0.08,
+                  delay: i * 0.06,
                 }}
                 className={`relative overflow-hidden rounded-2xl bg-[#1a1a2e] aspect-square md:aspect-auto group ${SPANS[i] || ''}`}
                 style={{
@@ -282,30 +281,6 @@ export default function Gallery() {
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                   style={{ imageRendering: 'auto' }}
                 />
-
-                {/* Bottom gradient for label legibility */}
-                <div
-                  className="absolute inset-x-0 bottom-0 pointer-events-none"
-                  style={{
-                    height: '40%',
-                    background:
-                      'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)',
-                  }}
-                />
-
-                {/* Bottom-left: subtle index + city tag */}
-                <figcaption className="absolute left-3.5 right-3.5 bottom-3 z-10 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-white/95">
-                    <span
-                      className="w-1.5 h-1.5 rounded-full"
-                      style={{ background: '#CE1126', boxShadow: '0 0 0 4px rgba(206,17,38,0.18)' }}
-                    />
-                    <span className="font-sans text-[10px] uppercase tracking-[0.28em] font-bold">
-                      {active.city}
-                    </span>
-                  </div>
-                  <span className="font-serif italic text-[12px] text-white/70">{active.year}</span>
-                </figcaption>
               </motion.figure>
             ))}
           </motion.div>
