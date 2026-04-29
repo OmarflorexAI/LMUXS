@@ -5,18 +5,20 @@ import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
 import { MapPin } from 'lucide-react'
 import { useT } from '../i18n'
 
-// ─── Events: each is a city + year + 4 photos ────────────────────────────
-// User will provide final cities/years/photo assignments.
+// ─── Events: each is a city + year + 5 photos ────────────────────────────
+// Cities/years are placeholders — replace with actual event metadata when
+// the user provides them. The 25 user-supplied photos are split 5-per-event.
 const events = [
   {
     id: 'puerto-plata-2020',
     city: 'Puerto Plata',
     year: '2020',
     photos: [
-      '/images/92e0a6fd-43b0-48d7-b330-c8efec53d1eb.jpg',
-      '/images/de412b4d-9ed7-4096-8eb8-787f6332f666.jpg',
-      '/images/481035632_18054987719136218_261079676402721292_n.jpg',
-      '/images/bbf481bc-4d55-44e8-9081-e98da354734a.jpg',
+      '/images/14052547-1226-416b-96ac-d9c2d4608571.jpeg',
+      '/images/4d38bd8c-ab4b-4b46-8174-ddef19d6d185.jpeg',
+      '/images/4ebede57-e2bc-40aa-9a18-2be07954c555.jpeg',
+      '/images/508df95d-9af7-4d51-8b96-37013a412a27.jpeg',
+      '/images/531d288a-3519-4d0c-aee9-f0285079b331.jpeg',
     ],
   },
   {
@@ -24,10 +26,11 @@ const events = [
     city: 'Monte Plata',
     year: '2022',
     photos: [
-      '/images/6b2b4380-7005-4524-978d-204f9acdc03e.jpg',
-      '/images/ad9f7594-9cdb-4f3d-b60d-2469ddd23e01.jpg',
-      '/images/josue-escoto-lij7YezX6fs-unsplash.jpg',
-      '/images/481835518_18054987704136218_4244386758836801036_n.jpg',
+      '/images/627ec46a-cf71-4154-aa52-500d5d51d5c8.jpeg',
+      '/images/8442c998-ec51-4e42-932e-335ac7b42009.jpeg',
+      '/images/84b97b71-bf1d-4949-84ca-0fb246a801bb.jpeg',
+      '/images/864fe915-0958-439f-86df-8d5f0885747f.jpeg',
+      '/images/936dbc9e-1e18-45fa-b68b-ff1b7d2ee1bd.jpeg',
     ],
   },
   {
@@ -35,10 +38,11 @@ const events = [
     city: 'Monte Cristi',
     year: '2023',
     photos: [
-      '/images/5404f636-925e-4f7d-a6f8-994030b66d26.jpg',
-      '/images/kenneth-schipper-bneCT1T_RXQ-unsplash.jpg',
-      '/images/0905dd8c-0535-4d93-9076-e1f43320a8fb.jpg',
-      '/images/becca-boyd-k6rbJF-gn7M-unsplash.jpg',
+      '/images/96016db0-d0c5-4654-8d0f-ea8ef24728c0.jpeg',
+      '/images/9e2e244c-7c19-4382-8731-ed93d13e311c.jpeg',
+      '/images/a5388225-6aeb-44fd-b5e5-a08d2c543e7a.jpeg',
+      '/images/acf3ceb7-b196-4cf2-abca-4458e539594a.jpeg',
+      '/images/b6e0c006-1f4c-439f-9734-f9034a3cb832.jpeg',
     ],
   },
   {
@@ -46,20 +50,39 @@ const events = [
     city: 'Los Mina',
     year: '2024',
     photos: [
-      '/images/43854744-5b4a-47e3-b65b-b3ccad629291.jpg',
-      '/images/b1c10c4d-a8f6-47e9-9ae8-7b754246b582.jpg',
-      '/images/c7eeb4f3-2e73-49fb-a7e4-f15a14e453b3.jpg',
-      '/images/2b1ea0ad-daa0-4f20-ba59-8141a0da8f9a.jpg',
+      '/images/bddc4b25-ab31-4b38-a32c-553b34abef41.jpeg',
+      '/images/beb4d983-e8c7-4cdb-a236-3a19b1a94472.jpeg',
+      '/images/c135b12d-0fa1-46a4-ae3a-d03f871a08e7.jpeg',
+      '/images/d5908b34-1c2a-4f7f-9360-004dde5bb6b7.jpeg',
+      '/images/e0f402c1-5d25-44ea-bb8f-d9288faa6bd1.jpeg',
+    ],
+  },
+  {
+    id: 'santiago-2025',
+    city: 'Santiago',
+    year: '2025',
+    photos: [
+      '/images/e1ef8420-5be2-443d-8f6c-c34b26d07bf1.jpeg',
+      '/images/e9b4362e-8de3-4fc4-8adc-7bb9a6c43d75.jpeg',
+      '/images/ea141b3d-3d22-4038-b2c4-0c6846cdc88a.jpeg',
+      '/images/f27271ef-a916-4d31-8555-cf9384af9635.jpeg',
+      '/images/f56c74be-58fe-47a9-ab9f-be5e7b70bb06.jpeg',
     ],
   },
 ]
 
-// Spans for the 4-photo grid (desktop). Mobile collapses to 2x2 squares.
+// Spans for a 5-photo bento on desktop (4 cols × 3 rows).
+//   [ P1 2x2     ][ P2 1x2 ][ P3 1x2 ]
+//   [            ][        ][        ]
+//   [ P4 2x1            ][ P5 2x1   ]
+// Mobile collapses to a 2-col grid; the last photo (P5) spans full width
+// so the 5-photo set rounds out cleanly without an orphan.
 const SPANS = [
-  'md:col-span-2 md:row-span-2', // hero (large)
-  'md:col-span-1 md:row-span-1',
-  'md:col-span-1 md:row-span-1',
-  'md:col-span-2 md:row-span-1', // wide
+  'md:col-span-2 md:row-span-2',
+  'md:col-span-1 md:row-span-2',
+  'md:col-span-1 md:row-span-2',
+  'md:col-span-2 md:row-span-1',
+  'col-span-2 md:col-span-2 md:row-span-1',
 ]
 
 const EASE = [0.22, 1, 0.36, 1]
