@@ -15,6 +15,7 @@ const linksConfig = [
 export default function Navbar() {
   const pillRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
   const [activeTab, setActiveTab] = useState(null)
   const { t } = useT()
   const links = linksConfig.map((l) => ({ ...l, label: t(l.key) }))
@@ -137,10 +138,9 @@ export default function Navbar() {
                       style={{ background: 'rgba(206,17,38,0.06)' }}
                       initial={false}
                       transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 40,
-                        mass: 0.8,
+                        type: 'tween',
+                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.3,
                       }}
                     >
                       <div
@@ -158,10 +158,20 @@ export default function Navbar() {
         {/* Vertical divider between nav and lang on desktop */}
         <div className="hidden md:block w-px h-4 bg-black/[0.08] mx-1" />
 
-        <LanguageSwitcher />
+        <LanguageSwitcher
+          open={langOpen}
+          onOpenChange={(v) => {
+            setLangOpen(v)
+            if (v) setMenuOpen(false)
+          }}
+        />
 
         <button
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => {
+            const nextMenu = !menuOpen
+            setMenuOpen(nextMenu)
+            if (nextMenu) setLangOpen(false)
+          }}
           className="md:hidden w-7 h-7 flex items-center justify-center rounded-full text-[#1a1a2e] transition-colors duration-200"
           style={{ background: 'rgba(0,0,0,0.05)' }}
           aria-label="Menu"

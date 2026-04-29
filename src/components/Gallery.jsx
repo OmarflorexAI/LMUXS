@@ -71,18 +71,16 @@ const events = [
   },
 ]
 
-// Spans for a 5-photo bento on desktop (4 cols × 3 rows).
-//   [ P1 2x2     ][ P2 1x2 ][ P3 1x2 ]
-//   [            ][        ][        ]
-//   [ P4 2x1            ][ P5 2x1   ]
-// Mobile collapses to a 2-col grid; the last photo (P5) spans full width
-// so the 5-photo set rounds out cleanly without an orphan.
-const SPANS = [
-  'md:col-span-2 md:row-span-2',
-  'md:col-span-1 md:row-span-2',
-  'md:col-span-1 md:row-span-2',
-  'md:col-span-2 md:row-span-1',
-  'col-span-2 md:col-span-2 md:row-span-1',
+// 5-photo layout: a hero photo followed by 4 supporting photos, all
+// landscape-friendly so wide group shots aren't cropped at the edges.
+//   Mobile  : hero full-width, supporting in 2 cols
+//   Desktop : hero full-width, supporting in 4 cols
+const PHOTO_CLASSES = [
+  'col-span-2 md:col-span-4 aspect-[16/10] md:aspect-[21/9]',
+  'col-span-1 md:col-span-1 aspect-[4/3]',
+  'col-span-1 md:col-span-1 aspect-[4/3]',
+  'col-span-1 md:col-span-1 aspect-[4/3]',
+  'col-span-1 md:col-span-1 aspect-[4/3]',
 ]
 
 const EASE = [0.22, 1, 0.36, 1]
@@ -252,7 +250,7 @@ export default function Gallery() {
             initial={false}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18, ease: EASE }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 md:grid-flow-dense md:[grid-auto-rows:minmax(180px,1fr)]"
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
           >
             {active.photos.map((src, i) => (
               <motion.figure
@@ -265,7 +263,7 @@ export default function Gallery() {
                   ease: EASE,
                   delay: i * 0.06,
                 }}
-                className={`relative overflow-hidden rounded-2xl bg-[#1a1a2e] aspect-square md:aspect-auto group ${SPANS[i] || ''}`}
+                className={`relative overflow-hidden rounded-2xl bg-[#1a1a2e] group ${PHOTO_CLASSES[i] || 'aspect-[4/3]'}`}
                 style={{
                   boxShadow: '0 6px 20px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.05)',
                   border: '1px solid rgba(0,0,0,0.06)',
@@ -279,7 +277,7 @@ export default function Gallery() {
                   decoding="async"
                   fetchpriority={i === 0 ? 'high' : 'auto'}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                  style={{ imageRendering: 'auto' }}
+                  style={{ imageRendering: 'auto', objectPosition: 'center' }}
                 />
               </motion.figure>
             ))}

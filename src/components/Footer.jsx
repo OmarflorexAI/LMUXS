@@ -33,7 +33,7 @@ export default function Footer() {
                 width="540"
                 height="462"
                 decoding="async"
-                className="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.04]"
+                className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.04]"
               />
               <div>
                 <div className="font-sans font-black text-white text-sm tracking-[0.18em] uppercase">LMUXS</div>

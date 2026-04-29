@@ -3,9 +3,16 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Globe, Check } from 'lucide-react'
 import { LANGUAGES, useT } from '../i18n'
 
-export default function LanguageSwitcher({ compact = false }) {
+export default function LanguageSwitcher({ compact = false, open: controlledOpen, onOpenChange }) {
   const { lang, setLang, t } = useT()
-  const [open, setOpen] = useState(false)
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
+  const isControlled = controlledOpen !== undefined
+  const open = isControlled ? controlledOpen : uncontrolledOpen
+  const setOpen = (value) => {
+    const next = typeof value === 'function' ? value(open) : value
+    if (!isControlled) setUncontrolledOpen(next)
+    onOpenChange?.(next)
+  }
   const wrapperRef = useRef(null)
 
   useEffect(() => {
