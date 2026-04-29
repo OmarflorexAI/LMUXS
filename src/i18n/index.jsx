@@ -10,11 +10,11 @@ const LangContext = createContext({
 const SUPPORTED = ['es', 'en', 'fr', 'de', 'zh', 'ko']
 
 function detectInitial() {
-  if (typeof window === 'undefined') return 'es'
+  if (typeof window === 'undefined') return 'en'
   const stored = localStorage.getItem('lmuxs_lang')
   if (stored && SUPPORTED.includes(stored)) return stored
-  const nav = (navigator.language || 'es').slice(0, 2).toLowerCase()
-  return SUPPORTED.includes(nav) ? nav : 'es'
+  // Default to English on first visit; user can switch via the language menu
+  return 'en'
 }
 
 export function LangProvider({ children }) {

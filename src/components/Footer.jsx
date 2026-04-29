@@ -9,21 +9,6 @@ const navConfig = [
   { key: 'nav.donate', href: 'https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact', external: true },
 ]
 
-function DominicanFlag() {
-  return (
-    <svg width="20" height="14" viewBox="0 0 20 14" className="flex-shrink-0" style={{ borderRadius: 2 }}>
-      <rect x="0" y="0" width="10" height="7" fill="#002D62" />
-      <rect x="10" y="0" width="10" height="7" fill="#CE1126" />
-      <rect x="0" y="7" width="10" height="7" fill="#CE1126" />
-      <rect x="10" y="7" width="10" height="7" fill="#002D62" />
-      <rect x="0" y="5.5" width="20" height="3" fill="white" />
-      <rect x="8.5" y="0" width="3" height="14" fill="white" />
-      <circle cx="10" cy="7" r="1.8" fill="none" stroke="white" strokeWidth="0.3" opacity="0.6" />
-      <rect x="9.6" y="5.8" width="0.8" height="2.4" fill="#006B3F" opacity="0.7" rx="0.2" />
-    </svg>
-  )
-}
-
 export default function Footer() {
   const { t } = useT()
   const navLinks = navConfig.map((l) => ({ ...l, label: t(l.key) }))
@@ -55,15 +40,9 @@ export default function Footer() {
                 <div className="font-sans text-white/55 text-[9px] tracking-[0.15em] uppercase">Los Mina Unidos Por Siempre</div>
               </div>
             </a>
-            <p className="font-sans text-white/55 text-[12px] leading-relaxed max-w-[260px] mb-6">
+            <p className="font-sans text-white/55 text-[12px] leading-relaxed max-w-[260px]">
               {t('footer.tagline')}
             </p>
-            <div className="flex items-center gap-2.5">
-              <DominicanFlag />
-              <span className="font-sans text-white/70 text-[11px] tracking-wide font-medium">
-                {t('footer.country')}
-              </span>
-            </div>
           </div>
 
           <div className="md:col-span-3 md:col-start-6">

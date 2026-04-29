@@ -25,7 +25,8 @@ export default function Hero() {
       const dur = mobile ? 0.65 : 1.0
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
-      tl.fromTo('.h-title1',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, 0.2)
+      tl.fromTo('.h-logo',    { y: 30, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: dur * 1.05 }, 0.05)
+        .fromTo('.h-title1',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.55')
         .fromTo('.h-title2',  { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: dur }, '-=0.6')
         .fromTo('.h-sub',     { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.75 }, '-=0.5')
         .fromTo('.h-btns',    { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: dur * 0.6 }, '-=0.4')
@@ -76,6 +77,27 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-6xl mx-auto w-full px-6 md:px-10">
         <div className="max-w-[720px]">
+
+          {/* Big logo + brand line */}
+          <div className="h-logo flex items-center gap-4 md:gap-5 mb-7 md:mb-9">
+            <img
+              src="/logo.png"
+              alt="LMUXS"
+              width="540"
+              height="462"
+              decoding="async"
+              loading="eager"
+              className="h-24 sm:h-28 md:h-32 lg:h-36 w-auto select-none drop-shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
+            />
+            <div className="flex flex-col gap-1.5 leading-none">
+              <span className="font-sans font-black text-[#1a1a2e] text-[15px] md:text-[18px] tracking-[0.22em] uppercase">
+                LMUXS
+              </span>
+              <span className="font-sans text-[#666] text-[10px] md:text-[11px] tracking-[0.18em] uppercase max-w-[180px]">
+                Los Mina Unidos Por Siempre
+              </span>
+            </div>
+          </div>
 
           {/* Serif headline */}
           <h1
