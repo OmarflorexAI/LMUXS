@@ -76,11 +76,11 @@ const events = [
 //   Mobile  : hero full-width, supporting in 2 cols
 //   Desktop : hero full-width, supporting in 4 cols
 const PHOTO_CLASSES = [
-  'col-span-2 md:col-span-4 aspect-[16/10] md:aspect-[21/9]',
-  'col-span-1 md:col-span-1 aspect-[4/3]',
-  'col-span-1 md:col-span-1 aspect-[4/3]',
-  'col-span-1 md:col-span-1 aspect-[4/3]',
-  'col-span-1 md:col-span-1 aspect-[4/3]',
+  'col-span-2 md:col-span-2 md:row-span-2 aspect-[16/10] md:aspect-auto h-full w-full',
+  'col-span-1 md:col-span-1 aspect-[4/3] h-full w-full',
+  'col-span-1 md:col-span-1 aspect-[4/3] h-full w-full',
+  'col-span-1 md:col-span-1 aspect-[4/3] h-full w-full',
+  'col-span-1 md:col-span-1 aspect-[4/3] h-full w-full',
 ]
 
 const EASE = [0.22, 1, 0.36, 1]
