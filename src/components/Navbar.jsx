@@ -177,7 +177,7 @@ export default function Navbar({ lenisRef }) {
           }}
         />
 
-        <div className="relative md:hidden">
+        <div className="md:hidden">
           <button
             onClick={() => {
               const nextMenu = !menuOpen
@@ -190,58 +190,63 @@ export default function Navbar({ lenisRef }) {
           >
             {menuOpen ? <X size={14} strokeWidth={2} /> : <Menu size={14} strokeWidth={2} />}
           </button>
-
-          <AnimatePresence>
-            {menuOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -6, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -6, scale: 0.96 }}
-                transition={{ type: 'spring', stiffness: 500, damping: 32, mass: 0.7 }}
-                className="absolute right-0 top-full mt-3 z-40 min-w-[180px] rounded-2xl overflow-hidden py-1.5"
-                style={{
-                  background: 'rgba(255,255,255,0.97)',
-                  backdropFilter: 'blur(20px) saturate(1.4)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
-                  border: '1px solid rgba(0,0,0,0.06)',
-                  boxShadow: '0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.05)',
-                }}
-              >
-                <nav className="flex flex-col px-1 pb-1">
-                  {links.map((link, i) => {
-                    const Icon = link.icon
-                    const isActive = activeTab === link.href
-                    return (
-                      <motion.a
-                        key={link.href}
-                        href={link.href}
-                        initial={{ opacity: 0, x: -4 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.18, delay: i * 0.025 }}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          clickLockUntil.current = Date.now() + 900
-                          setActiveTab(link.href)
-                          setMenuOpen(false)
-                          scrollTo(link.href)
-                        }}
-                        className={`w-full flex items-center gap-3 px-3 py-2 mt-0.5 rounded-lg text-left font-sans text-[13px] transition-colors duration-150 cursor-pointer ${
-                          isActive
-                            ? 'bg-[#CE1126]/[0.06] text-[#CE1126] font-semibold'
-                            : 'text-[#1a1a2e] hover:bg-black/[0.04]'
-                        }`}
-                      >
-                        <Icon size={14} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-[#CE1126]' : 'text-[#666]'} />
-                        <span>{link.label}</span>
-                      </motion.a>
-                    )
-                  })}
-                </nav>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
+
+      {/* Mobile menu — fixed, centered below navbar */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 32, mass: 0.7 }}
+            className="fixed left-4 right-4 z-40 md:hidden rounded-2xl overflow-hidden py-1.5"
+            style={{
+              top: '56px',
+              background: 'rgba(255,255,255,0.97)',
+              backdropFilter: 'blur(20px) saturate(1.4)',
+              WebkitBackdropFilter: 'blur(20px) saturate(1.4)',
+              border: '1px solid rgba(0,0,0,0.06)',
+              boxShadow: '0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.05)',
+              maxWidth: '320px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
+          >
+            <nav className="flex flex-col px-1.5 pb-1">
+              {links.map((link, i) => {
+                const Icon = link.icon
+                const isActive = activeTab === link.href
+                return (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2, delay: i * 0.03 }}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      clickLockUntil.current = Date.now() + 900
+                      setActiveTab(link.href)
+                      setMenuOpen(false)
+                      scrollTo(link.href)
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 mt-0.5 rounded-xl text-left font-sans text-[13px] transition-colors duration-150 cursor-pointer ${
+                      isActive
+                        ? 'bg-[#CE1126]/[0.06] text-[#CE1126] font-semibold'
+                        : 'text-[#1a1a2e] hover:bg-black/[0.04]'
+                    }`}
+                  >
+                    <Icon size={15} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-[#CE1126]' : 'text-[#666]'} />
+                    <span>{link.label}</span>
+                  </motion.a>
+                )
+              })}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
