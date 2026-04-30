@@ -3,15 +3,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowUpRight, Users, HandHeart, Clock } from 'lucide-react'
 import { motion } from 'motion/react'
-import {
-  CardCurtainReveal,
-  CardCurtainRevealBody,
-  CardCurtainRevealDescription,
-  CardCurtainRevealFooter,
-  CardCurtainRevealTitle,
-  CardCurtain,
-  useCardCurtainRevealContext,
-} from './ui/card-curtain-reveal'
 import { useT } from '../i18n'
 
 function buildStats(t) {
@@ -37,27 +28,7 @@ function buildStats(t) {
   ]
 }
 
-function CurtainPreview({ icon, label, accent }) {
-  const { isMouseIn } = useCardCurtainRevealContext()
-  return (
-    <motion.div
-      className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 pointer-events-none"
-      animate={{ opacity: isMouseIn ? 0 : 1 }}
-      transition={{ duration: 0.25 }}
-    >
-      <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center"
-        style={{ background: `${accent}18`, color: accent }}
-      >
-        {icon}
-      </div>
-      <span className="font-sans font-bold text-[15px] tracking-tight text-[#1a1a2e]">
-        {label}
-      </span>
-      <div className="w-8 h-[2px] rounded-full" style={{ background: accent, opacity: 0.5 }} />
-    </motion.div>
-  )
-}
+// Removed CurtainPreview
 
 function StatCard({ value, suffix, label, sub, icon, accent, image, index }) {
   const numRef = useRef(null)
@@ -82,14 +53,14 @@ function StatCard({ value, suffix, label, sub, icon, accent, image, index }) {
 
   return (
     <div ref={cardRef} style={{ opacity: 0 }}>
-      <CardCurtainReveal
-        className="h-[380px] sm:h-[440px] md:h-[480px] rounded-2xl text-[#1a1a2e] bg-white"
+      <div
+        className="h-[380px] sm:h-[440px] md:h-[480px] rounded-2xl text-[#1a1a2e] bg-white relative flex flex-col overflow-hidden"
         style={{
           border: '1px solid rgba(0,0,0,0.08)',
           boxShadow: '0 8px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)',
         }}
       >
-        <CardCurtainRevealBody className="flex flex-col justify-between p-7 sm:p-8">
+        <div className="flex-1 flex flex-col justify-between p-7 sm:p-8">
           <div>
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-6"
@@ -105,40 +76,28 @@ function StatCard({ value, suffix, label, sub, icon, accent, image, index }) {
             </div>
           </div>
 
-          <CardCurtainRevealTitle className="text-lg sm:text-xl font-sans font-bold tracking-tight text-[#1a1a1a] mt-auto">
+          <h2 className="text-lg sm:text-xl font-sans font-bold tracking-tight text-[#1a1a1a] mt-auto">
             {label}
-          </CardCurtainRevealTitle>
+          </h2>
 
-          <CardCurtainRevealDescription className="mt-3">
+          <div className="mt-3">
             <p className="font-sans text-[13px] leading-relaxed text-[#333]">
               {sub}
             </p>
-          </CardCurtainRevealDescription>
-
-          <div className="mt-4 w-8 h-8 rounded-full flex items-center justify-center"
-            style={{ background: `${accent}15`, color: accent }}>
-            <ArrowUpRight size={14} />
           </div>
-
-          <CardCurtain
-            inverted
-            className="bg-white"
-            style={{ mixBlendMode: 'normal' }}
-          />
-          <CurtainPreview icon={icon} label={label} accent={accent} />
 
           {/* Accent top bar */}
           <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl z-20"
             style={{ background: accent }} />
-        </CardCurtainRevealBody>
+        </div>
 
-        <CardCurtainRevealFooter className="mt-auto">
+        <div className="mt-auto">
           <div className="relative h-48 overflow-hidden">
             <img src={image} alt={label} className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent" />
           </div>
-        </CardCurtainRevealFooter>
-      </CardCurtainReveal>
+        </div>
+      </div>
     </div>
   )
 }
