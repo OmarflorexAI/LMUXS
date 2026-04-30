@@ -37,8 +37,8 @@ function StatCard({ value, suffix, label, sub, icon, accent, image, index }) {
   useEffect(() => {
     const mobile = window.innerWidth < 768
     const ctx = gsap.context(() => {
-      gsap.fromTo(cardRef.current, { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: mobile ? 0.6 : 1.1, delay: index * (mobile ? 0.06 : 0.12), ease: 'expo.out',
+      gsap.fromTo(cardRef.current, { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: mobile ? 0.7 : 1.2, delay: index * (mobile ? 0.08 : 0.14), ease: 'expo.out',
           scrollTrigger: { trigger: cardRef.current, start: 'top 88%', once: true } })
 
       const obj = { v: 0 }

@@ -96,25 +96,25 @@ export default function Gallery() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.g-header > *',
-        { y: 24, opacity: 0 },
+        { y: 36, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: mobile ? 0.5 : 0.85,
-          stagger: 0.06,
-          ease: 'power3.out',
+          duration: mobile ? 0.6 : 1.0,
+          stagger: 0.08,
+          ease: 'expo.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' },
         }
       )
 
       gsap.fromTo(
         '.g-tabs',
-        { y: 18, opacity: 0 },
+        { y: 20, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: mobile ? 0.5 : 0.7,
-          ease: 'power3.out',
+          duration: mobile ? 0.5 : 0.8,
+          ease: 'expo.out',
           scrollTrigger: { trigger: '.g-tabs', start: 'top 90%' },
         }
       )

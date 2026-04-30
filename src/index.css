@@ -19,6 +19,13 @@
   html {
     scroll-padding-top: 88px;
     background-color: #E8E4E0; /* Match hero background so top overscroll is seamless */
+    overscroll-behavior: none;
+  }
+
+  /* Lenis overrides — prevent native smooth scroll from fighting Lenis */
+  html.lenis,
+  html.lenis body {
+    scroll-behavior: auto !important;
   }
 
   body {

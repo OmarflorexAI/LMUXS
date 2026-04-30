@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './index.css'
+import 'lenis/dist/lenis.css'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navbar from './components/Navbar'
@@ -22,32 +23,43 @@ gsap.config({ force3D: true })
 
 export default function App() {
   const [volunteerOpen, setVolunteerOpen] = useState(false)
+  const lenisRef = useRef(null)
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
+      smoothWheel: true,
       smoothTouch: false,
       touchMultiplier: 2,
+      wheelMultiplier: 1,
       infinite: false,
-      autoRaf: true,
+      autoResize: true,
     })
 
+    lenisRef.current = lenis
+
+    // Sync Lenis scroll position → GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update)
 
+    // Drive Lenis from GSAP's unified ticker for perfect sync
+    const update = (time) => {
+      lenis.raf(time * 1000)
+    }
+    gsap.ticker.add(update)
+    gsap.ticker.lagSmoothing(0)
+
     return () => {
+      gsap.ticker.remove(update)
       lenis.destroy()
+      lenisRef.current = null
     }
   }, [])
 
   return (
     <LangProvider>
       <div className="relative min-h-screen bg-[#F5F5F7]">
-        <Navbar />
+        <Navbar lenisRef={lenisRef} />
 
         <main>
           <Hero />
@@ -57,7 +69,7 @@ export default function App() {
           <Donate onOpenVolunteer={() => setVolunteerOpen(true)} />
         </main>
 
-        <Footer />
+        <Footer lenisRef={lenisRef} />
 
         <VolunteerModal
           isOpen={volunteerOpen}

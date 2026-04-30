@@ -16,21 +16,27 @@ export default function About() {
     const mobile = window.innerWidth < 768
     const dur = mobile ? 0.7 : 1.1
     const ctx = gsap.context(() => {
-      gsap.fromTo('.about-reveal', { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.06, duration: dur, ease: 'power4.out',
+      // Text reveals — staggered from below
+      gsap.fromTo('.about-reveal', { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.08, duration: dur, ease: 'expo.out',
           scrollTrigger: { trigger: '.about-text-col', start: 'top 82%' } })
-      gsap.fromTo('.about-photo', { scale: 1.04, opacity: 0 },
-        { scale: 1, opacity: 1, stagger: 0.1, duration: mobile ? 0.8 : 1.4, ease: 'expo.out',
+
+      // Photo reveals — scale in with smooth decel
+      gsap.fromTo('.about-photo', { scale: 1.06, opacity: 0 },
+        { scale: 1, opacity: 1, stagger: 0.12, duration: mobile ? 0.8 : 1.4, ease: 'expo.out',
           scrollTrigger: { trigger: '.about-photos', start: 'top 82%' } })
-      /* Parallax — desktop only (scrub causes jank on mobile) */
+
+      /* Parallax — desktop only (scrub for depth as you scroll) */
       if (!mobile) {
-        gsap.to('.about-photo-top', { y: -30, ease: 'none',
+        gsap.to('.about-photo-top', { y: -40, ease: 'none',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1.5 } })
+        gsap.to('.about-photo-bot', { y: 30, ease: 'none',
           scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 } })
-        gsap.to('.about-photo-bot', { y: 20, ease: 'none',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2.5 } })
       }
-      gsap.fromTo('.about-card', { y: 16, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.06, duration: mobile ? 0.6 : 0.9, ease: 'power4.out',
+
+      // Info cards — subtle rise
+      gsap.fromTo('.about-card', { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.07, duration: mobile ? 0.6 : 0.9, ease: 'expo.out',
           scrollTrigger: { trigger: '.about-cards-row', start: 'top 90%' } })
     }, sectionRef)
     return () => ctx.revert()

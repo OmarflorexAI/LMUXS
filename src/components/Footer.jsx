@@ -9,9 +9,21 @@ const navConfig = [
   { key: 'nav.donate', href: 'https://www.gofundme.com/f/support-los-mina-unidos-x-siempres-impact', external: true },
 ]
 
-export default function Footer() {
+export default function Footer({ lenisRef }) {
   const { t } = useT()
   const navLinks = navConfig.map((l) => ({ ...l, label: t(l.key) }))
+
+  const scrollTo = (href) => {
+    const target = document.querySelector(href)
+    if (!target) return
+    const offset = 88
+    if (lenisRef?.current) {
+      lenisRef.current.scrollTo(target, { offset: -offset, duration: 1.4 })
+    } else {
+      const top = target.getBoundingClientRect().top + window.scrollY - offset
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+  }
   return (
     <footer id="contacto" className="relative bg-[#0C0C1A]">
 
@@ -24,7 +36,11 @@ export default function Footer() {
           <div className="md:col-span-4">
             <a href="#inicio" onClick={(e) => {
               e.preventDefault()
-              window.scrollTo({ top: 0, behavior: 'smooth' })
+              if (lenisRef?.current) {
+                lenisRef.current.scrollTo(0, { duration: 1.6 })
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }
             }} className="flex items-center gap-3.5 mb-6 group w-fit">
               <img
                 src="/logo.png"
@@ -55,12 +71,7 @@ export default function Footer() {
                     {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     {...(!link.external ? { onClick: (e) => {
                       e.preventDefault()
-                      const target = document.querySelector(link.href)
-                      if (target) {
-                        const offset = 88
-                        const top = target.getBoundingClientRect().top + window.scrollY - offset
-                        window.scrollTo({ top, behavior: 'smooth' })
-                      }
+                      scrollTo(link.href)
                     }} : {})}
                     className="group inline-flex items-center gap-1.5 font-sans text-[13px] text-white/60 hover:text-white transition-colors duration-200">
                     <span>{link.label}</span>

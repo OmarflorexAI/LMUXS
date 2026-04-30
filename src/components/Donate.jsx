@@ -74,14 +74,14 @@ export default function Donate({ onOpenVolunteer }) {
   useEffect(() => {
     const mobile = window.innerWidth < 768
     const ctx = gsap.context(() => {
-      gsap.fromTo('.donate-header', { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: mobile ? 0.6 : 1.1, ease: 'power4.out',
+      gsap.fromTo('.donate-header', { y: 36, opacity: 0 },
+        { y: 0, opacity: 1, duration: mobile ? 0.6 : 1.1, ease: 'expo.out',
           scrollTrigger: { trigger: '.donate-header', start: 'top 82%' } })
-      gsap.fromTo('.impact-grid', { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: mobile ? 0.6 : 1, ease: 'expo.out',
+      gsap.fromTo('.impact-grid', { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: mobile ? 0.6 : 1.0, ease: 'expo.out',
           scrollTrigger: { trigger: '.impact-grid', start: 'top 85%' } })
-      gsap.fromTo('.donate-cta', { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: mobile ? 0.5 : 0.9, ease: 'power4.out',
+      gsap.fromTo('.donate-cta', { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: mobile ? 0.5 : 0.9, ease: 'expo.out',
           scrollTrigger: { trigger: '.donate-cta', start: 'top 90%' } })
     }, sectionRef)
     return () => ctx.revert()

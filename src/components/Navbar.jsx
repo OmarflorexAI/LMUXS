@@ -12,7 +12,7 @@ const linksConfig = [
   { key: 'nav.contact', href: '#contacto', icon: Mail },
 ]
 
-export default function Navbar() {
+export default function Navbar({ lenisRef }) {
   const pillRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
@@ -20,6 +20,18 @@ export default function Navbar() {
   const clickLockUntil = useRef(0)
   const { t } = useT()
   const links = linksConfig.map((l) => ({ ...l, label: t(l.key) }))
+
+  const scrollTo = (href) => {
+    const target = document.querySelector(href)
+    if (!target) return
+    const offset = 88
+    if (lenisRef?.current) {
+      lenisRef.current.scrollTo(target, { offset: -offset, duration: 1.4 })
+    } else {
+      const top = target.getBoundingClientRect().top + window.scrollY - offset
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+  }
 
   useEffect(() => {
     const el = pillRef.current
@@ -121,12 +133,7 @@ export default function Navbar() {
                     e.preventDefault()
                     clickLockUntil.current = Date.now() + 900
                     setActiveTab(link.href)
-                    const target = document.querySelector(link.href)
-                    if (target) {
-                      const offset = 88
-                      const top = target.getBoundingClientRect().top + window.scrollY - offset
-                      window.scrollTo({ top, behavior: 'smooth' })
-                    }
+                    scrollTo(link.href)
                   }}
                   className={`relative font-sans text-[11px] font-medium px-3 py-1.5 rounded-full transition-colors duration-200 tracking-wide cursor-pointer ${
                     isActive
@@ -216,12 +223,7 @@ export default function Navbar() {
                           clickLockUntil.current = Date.now() + 900
                           setActiveTab(link.href)
                           setMenuOpen(false)
-                          const target = document.querySelector(link.href)
-                          if (target) {
-                            const offset = 88
-                            const top = target.getBoundingClientRect().top + window.scrollY - offset
-                            window.scrollTo({ top, behavior: 'smooth' })
-                          }
+                          scrollTo(link.href)
                         }}
                         className={`w-full flex items-center gap-3 px-3 py-2 mt-0.5 rounded-lg text-left font-sans text-[13px] transition-colors duration-150 cursor-pointer ${
                           isActive
