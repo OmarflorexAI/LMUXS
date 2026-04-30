@@ -16,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 gsap.defaults({ ease: 'power3.out' })
 ScrollTrigger.defaults({ once: true })
+ScrollTrigger.config({ ignoreMobileResize: true })
 gsap.config({ force3D: true })
 
 export default function App() {

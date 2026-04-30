@@ -13,12 +13,13 @@ export default function Footer() {
   const { t } = useT()
   const navLinks = navConfig.map((l) => ({ ...l, label: t(l.key) }))
   return (
-    <footer id="contacto" className="relative bg-[#0C0C1A] overflow-hidden">
+    <footer id="contacto" className="relative bg-[#0C0C1A]">
+      {/* Overscroll background extension */}
+      <div className="absolute top-full left-0 right-0 h-[50vh] bg-[#0C0C1A] pointer-events-none" />
+
       {/* Top accent — three brand colors */}
       <div className="absolute top-0 left-0 right-0 h-[3px]"
         style={{ background: 'linear-gradient(to right, #002D62 0%, #002D62 33%, rgba(255,255,255,0.15) 33%, rgba(255,255,255,0.15) 66%, #CE1126 66%, #CE1126 100%)' }} />
-
-
       <div className="max-w-6xl mx-auto px-6 md:px-10 pt-12 md:pt-16 pb-6 md:pb-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 pb-8 md:pb-12 border-b border-white/[0.08]">
 
