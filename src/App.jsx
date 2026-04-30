@@ -11,6 +11,7 @@ import Donate from './components/Donate'
 import Footer from './components/Footer'
 import VolunteerModal from './components/VolunteerModal'
 import { LangProvider } from './i18n'
+import Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,9 +23,37 @@ gsap.config({ force3D: true })
 export default function App() {
   const [volunteerOpen, setVolunteerOpen] = useState(false)
 
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    })
+
+    lenis.on('scroll', ScrollTrigger.update)
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    })
+    gsap.ticker.lagSmoothing(0)
+
+    return () => {
+      lenis.destroy()
+      gsap.ticker.remove((time) => {
+        lenis.raf(time * 1000)
+      })
+    }
+  }, [])
+
   return (
     <LangProvider>
-      <div className="relative min-h-screen bg-[#F5F5F7] overflow-x-hidden">
+      <div className="relative min-h-screen bg-[#F5F5F7]">
         <Navbar />
 
         <main>

@@ -14,8 +14,6 @@ export default function Footer() {
   const navLinks = navConfig.map((l) => ({ ...l, label: t(l.key) }))
   return (
     <footer id="contacto" className="relative bg-[#0C0C1A]">
-      {/* Overscroll background extension */}
-      <div className="absolute top-full left-0 right-0 h-[50vh] bg-[#0C0C1A] pointer-events-none" />
 
       {/* Top accent — three brand colors */}
       <div className="absolute top-0 left-0 right-0 h-[3px]"
