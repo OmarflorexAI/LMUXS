@@ -100,7 +100,7 @@ export default function Donate({ onOpenVolunteer }) {
       <div className="absolute top-0 inset-x-0 h-[1px]"
         style={{ background: 'linear-gradient(to right, transparent, rgba(0,0,0,0.08), transparent)' }} />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10">
 
         <div className="donate-header max-w-2xl mx-auto text-center mb-12 md:mb-20">
           <div className="inline-flex items-center gap-2.5 mb-8">

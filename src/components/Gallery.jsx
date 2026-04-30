@@ -133,7 +133,7 @@ export default function Gallery() {
         style={{ background: 'linear-gradient(to right, transparent, rgba(0,0,0,0.08), transparent)' }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="g-header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
           <div>
             <div className="flex items-center gap-3 mb-4">
