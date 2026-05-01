@@ -30,3 +30,5 @@ screenshot*.png
 screenshot*.js
 progress.md
 LEARNINGS.md
+
+.vercel
