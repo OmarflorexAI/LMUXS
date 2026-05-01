@@ -2,26 +2,20 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { dictionaries } from './dictionaries'
 
 const LangContext = createContext({
-  lang: 'es',
+  lang: 'en',
   setLang: () => {},
   t: (k) => k,
 })
 
 const SUPPORTED = ['es', 'en', 'fr', 'de', 'zh', 'ko']
 
-function detectInitial() {
-  if (typeof window === 'undefined') return 'en'
-  const stored = localStorage.getItem('lmuxs_lang')
-  if (stored && SUPPORTED.includes(stored)) return stored
-  // Default to English on first visit; user can switch via the language menu
-  return 'en'
-}
-
 export function LangProvider({ children }) {
-  const [lang, setLangState] = useState(detectInitial)
+  // Always start in English — language choice is session-only, never persisted
+  const [lang, setLangState] = useState('en')
 
   useEffect(() => {
-    localStorage.setItem('lmuxs_lang', lang)
+    // Clear any previously stored language so stale values can't leak
+    localStorage.removeItem('lmuxs_lang')
     if (typeof document !== 'undefined') document.documentElement.lang = lang
   }, [lang])
 
@@ -30,8 +24,8 @@ export function LangProvider({ children }) {
   }
 
   const t = (key) => {
-    const dict = dictionaries[lang] || dictionaries.es
-    return dict[key] ?? dictionaries.es[key] ?? key
+    const dict = dictionaries[lang] || dictionaries.en
+    return dict[key] ?? dictionaries.en[key] ?? key
   }
 
   return (
